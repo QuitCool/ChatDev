@@ -50,7 +50,6 @@ bower_components/
 
 # Environment
 .npmrc
-.env*
 my.secrets
 !**/.env.example
 !**/.env.test.example
