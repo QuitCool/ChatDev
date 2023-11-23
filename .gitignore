@@ -51,8 +51,6 @@ bower_components/
 # Environment
 .npmrc
 my.secrets
-!**/.env.example
-!**/.env.test.example
 cache.json
 api/data/
 owner.yml
