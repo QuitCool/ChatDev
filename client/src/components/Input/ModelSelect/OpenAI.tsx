@@ -7,14 +7,28 @@ export default function OpenAI({
   setOption,
   models,
   showAbove = true,
-  popover = false,
+  popover = true,
 }: TModelSelectProps) {
   const Menu = popover ? SelectDropDownPop : SelectDropDown;
+
+  // Mapping of model internal names to display names
+  const modelNameMappings = {
+    'gpt-4-0613': 'GPT 4',
+    'gpt-4-1106-preview': 'GPT 4 Turbo',
+    'gpt-4-vision-preview': 'GPT 4 Vision',
+    'gpt-3.5-turbo-1106': 'GPT 3.5 Turbo',
+  };
+
+  // Function to alias model names
+  const aliasModelName = (modelName) => {
+    return modelNameMappings[modelName] || modelName;
+  };
+
   return (
     <Menu
-      value={conversation?.model ?? ''}
+      value={aliasModelName(conversation?.model ?? '')}
       setValue={setOption('model')}
-      availableValues={models}
+      availableValues={models.map(model => aliasModelName(model))}
       showAbove={showAbove}
       showLabel={false}
       className={cn(

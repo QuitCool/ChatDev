@@ -3,7 +3,6 @@ import {
   AzureMinimalIcon,
   OpenAIMinimalIcon,
   LightningIcon,
-  PluginMinimalIcon,
   BingAIMinimalIcon,
   PaLMinimalIcon,
   AnthropicIcon,
@@ -26,7 +25,7 @@ const MinimalIcon: React.FC<IconProps> = (props) => {
       name: props.chatGptLabel || 'ChatGPT',
     },
     [EModelEndpoint.openAI]: { icon: <OpenAIMinimalIcon />, name: props.chatGptLabel || 'ChatGPT' },
-    [EModelEndpoint.gptPlugins]: { icon: <PluginMinimalIcon />, name: 'Plugins' },
+    [EModelEndpoint.gptPlugins]: { icon: <OpenAIMinimalIcon />, name: 'Plugins' },
     [EModelEndpoint.google]: { icon: <PaLMinimalIcon />, name: props.modelLabel || 'PaLM2' },
     [EModelEndpoint.anthropic]: {
       icon: <AnthropicIcon className="icon-md shrink-0 dark:text-white" />,

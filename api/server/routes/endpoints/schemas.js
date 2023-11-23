@@ -12,7 +12,7 @@ const EModelEndpoint = {
 };
 
 const alternateName = {
-  [EModelEndpoint.openAI]: 'OpenAI',
+  [EModelEndpoint.openAI]: 'ChatGPT',
   [EModelEndpoint.assistant]: 'Assistants',
   [EModelEndpoint.azureOpenAI]: 'Azure OpenAI',
   [EModelEndpoint.bingAI]: 'Bing',

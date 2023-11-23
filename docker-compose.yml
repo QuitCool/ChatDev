@@ -1,25 +1,10 @@
 version: "3.4"
-
 services:
-  # client:
-  #   image: nginx-client
-  #   build:
-  #     context: .
-  #     target: nginx-client
-  #   restart: always
-  #   ports:
-  #     - 3080:80
-  #   volumes:
-  #     - /client/node_modules
-  #   depends_on:
-  #     - api
   api:
-    container_name: LibreChat
+    container_name: ChatGPT
     ports:
       - 3080:3080               # Change it to 9000:3080 to use nginx
-    depends_on:
-      - mongodb
-    image: librechat                # Comment this & uncomment below to build from docker hub image
+    image: chatgpt                # Comment this & uncomment below to build from docker hub image
     build:                                   # ^------
       context: .                              # ^------
       target: node                             # ^------v
@@ -32,9 +17,8 @@ services:
       - .env
     environment:
       - HOST=0.0.0.0
-      - MONGO_URI=mongodb://mongodb:27017/LibreChat
-      # - CHATGPT_REVERSE_PROXY=http://host.docker.internal:8080/api/conversation # if you are hosting your own chatgpt reverse proxy with docker
-      # - OPENAI_REVERSE_PROXY=http://host.docker.internal:8070/v1/chat/completions # if you are hosting your own chatgpt reverse proxy with docker
+      - MONGO_URI=mongodb+srv://modb12:t1sjeM9gxrfsOwJT@cluster0.ftwrwgp.mongodb.net/?retryWrites=true
+      - OPENAI_REVERSE_PROXY=https://api.naga.ac/v1/chat/completions
       - MEILI_HOST=http://meilisearch:7700
       - MEILI_HTTP_ADDR=meilisearch:7700
     volumes:
@@ -45,28 +29,28 @@ services:
       - ./.env.production:/app/.env.production
       - /app/api/node_modules
       - ./images:/app/client/public/images
-  mongodb:
-    container_name: chat-mongodb
-    # ports:  # Uncomment this to access mongodb from outside docker, not safe in deployment
-    #   - 27018:27017
-    image: mongo
-    restart: always
-    user: "${UID}:${GID}"
-    volumes:
-      - ./data-node:/data/db
-    command: mongod --noauth
-  meilisearch:
-    container_name: chat-meilisearch
-    image: getmeili/meilisearch:v1.0
-    restart: always
-    # ports: # Uncomment this to access meilisearch from outside docker
-    #   - 7700:7700 # if exposing these ports, make sure your master key is not the default value
-    env_file:
-      - .env
-    user: "${UID}:${GID}"
-    environment:
-      - MEILI_HOST=http://meilisearch:7700
-      - MEILI_HTTP_ADDR=meilisearch:7700
-      - MEILI_NO_ANALYTICS=true
-    volumes:
-      - ./meili_data:/meili_data
+#  mongodb:
+#    container_name: chat-mongodb
+#    # ports:  # Uncomment this to access mongodb from outside docker, not safe in deployment
+#    #   - 27018:27017
+#    image: mongo
+#    restart: always
+#    user: "${UID}:${GID}"
+#    volumes:
+#      - ./data-node:/data/db
+#    command: mongod --noauth
+#  meilisearch:
+#    container_name: chat-meilisearch
+#    image: getmeili/meilisearch:v1.0
+#    restart: always
+#    # ports: # Uncomment this to access meilisearch from outside docker
+#    #   - 7700:7700 # if exposing these ports, make sure your master key is not the default value
+#    env_file:
+#      - .env
+#    user: "${UID}:${GID}"
+#    environment:
+#      - MEILI_HOST=http://meilisearch:7700
+#      - MEILI_HTTP_ADDR=meilisearch:7700
+#      - MEILI_NO_ANALYTICS=true
+#    volumes:
+#      - ./meili_data:/meili_data

@@ -87,7 +87,8 @@ Guidelines:
       // TODO: Future idea -- could we ask an LLM to extract these arguments from an input that might contain them?
       n: 1,
       // size: '1024x1024'
-      size: '512x512',
+      size: '1024x1024',
+      model: "midjourney"
     });
 
     const theImageUrl = resp.data[0].url;

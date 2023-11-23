@@ -13,12 +13,12 @@ export default function Footer() {
       ) : (
         <>
           <a
-            href="https://github.com/danny-avila/LibreChat"
+            href="https://www.facebook.com/profile.php?id=61552521565850&mibextid=LQQJ4d/"
             target="_blank"
             rel="noreferrer"
             className="underline"
           >
-            {config?.appTitle || 'LibreChat'} v0.6.1
+            {config?.appTitle || 'ChatGPT'} v23.11.2023
           </a>
           {' - '}. {localize('com_ui_pay_per_call')}
         </>

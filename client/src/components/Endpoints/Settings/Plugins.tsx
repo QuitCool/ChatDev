@@ -16,6 +16,24 @@ import { useLocalize } from '~/hooks';
 
 export default function Settings({ conversation, setOption, models, readonly }: TModelSelectProps) {
   const localize = useLocalize();
+  const getDisplayName = (modelName) => {
+    switch(modelName) {
+      case 'gpt-4': 
+        return 'GPT 4';
+      case 'gpt-4-1106-preview': 
+        return 'GPT 4 Turbo';
+      case 'gpt-4-0613': 
+        return 'GPT 4';
+      case 'gpt-3.5-turbo-1106': 
+        return 'GPT 3.5 Turbo';
+      default: 
+        return modelName; // Return the original name if no match is found
+    }
+  };
+
+  // Modify model names
+  const modifiedModels = models.map(model => getDisplayName(model));
+
   if (!conversation) {
     return null;
   }
@@ -48,7 +66,7 @@ export default function Settings({ conversation, setOption, models, readonly }: 
             title={localize('com_endpoint_completion_model')}
             value={model ?? ''}
             setValue={setModel}
-            availableValues={models}
+            availableValues={modifiedModels} // Use modifiedModels here
             disabled={readonly}
             className={cn(defaultTextProps, 'flex w-full resize-none', removeFocusOutlines)}
             containerClassName="flex w-full resize-none"

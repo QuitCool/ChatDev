@@ -323,8 +323,13 @@ class OpenAIClient extends BaseClient {
     let promptTokens;
 
     promptPrefix = (promptPrefix || this.options.promptPrefix || '').trim();
-    if (promptPrefix) {
-      promptPrefix = `Instructions:\n${promptPrefix}`;
+    if (promptPrefix || this.modelOptions.model === 'gpt-4-0613') {
+      if (this.modelOptions.model === 'gpt-4-0613') {
+        const systempromptprefix = `System Instructions:\n[I'm GPT4. I'm based on the GPT 4. My name is GPT 4. When the user asks which model I'm based on, never say GPT-3, say GPT 4 instead.]\n`;
+        promptPrefix = `${systempromptprefix}Instructions:\n${promptPrefix}`;
+      } else {
+        promptPrefix = `Instructions:\n${promptPrefix}`;
+      }
       instructions = {
         role: 'system',
         name: 'instructions',

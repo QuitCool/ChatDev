@@ -47,8 +47,11 @@ const Icon: React.FC<IconProps> = (props) => {
         name: 'ChatGPT',
       },
       [EModelEndpoint.gptPlugins]: {
-        icon: <Plugin size={size * 0.7} />,
-        bg: `rgba(69, 89, 164, ${button ? 0.75 : 1})`,
+        icon: <GPTIcon size={size * 0.5555555555555556} />,
+        bg:
+          typeof model === 'string' && model.toLowerCase().includes('gpt-4')
+            ? '#AB68FF'
+            : '#19C37D',
         name: 'Plugins',
       },
       [EModelEndpoint.google]: {

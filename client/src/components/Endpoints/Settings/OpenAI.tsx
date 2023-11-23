@@ -124,7 +124,7 @@ export default function Settings({ conversation, setOption, models, readonly }: 
             </div>
             <Slider
               disabled={readonly}
-              value={[temperature ?? 1]}
+              value={[temperature ?? 0.7]}
               onValueChange={(value) => setTemperature(value[0])}
               doubleClickHandler={() => setTemperature(1)}
               max={2}

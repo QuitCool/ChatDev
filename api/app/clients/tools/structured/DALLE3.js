@@ -98,7 +98,7 @@ class DALLE3 extends Tool {
     let resp;
     try {
       resp = await this.openai.images.generate({
-        model: 'dall-e-3',
+        model: 'kandinsky-2.2',
         quality,
         style,
         size,
