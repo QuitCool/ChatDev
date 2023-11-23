@@ -11,7 +11,7 @@
     "type": "openapi",
     "url": "https://testplugin.feednews.com/.well-known/openapi.yaml"
   },
-  "logo_url": "https://openapi-af.op-mobile.opera.com/openapi/testplugin/.well-known/logo.png",
+  "logo_url": "https://ps.w.org/translate-websites-translentor/assets/icon-256x256.png",
   "contact_email": "aiplugins-contact-list@opera.com",
   "legal_info_url": "https://legal.apexnews.com/terms/"
 }
