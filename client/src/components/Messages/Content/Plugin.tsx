@@ -112,7 +112,7 @@ const Plugin: React.FC<PluginProps> = ({ plugin }) => {
                     lang={
                       latestPlugin ? `RESPONSE FROM ${latestPlugin?.toUpperCase()}` : 'RESPONSE'
                     }
-                    codeChildren={formatJSON('FINISH')}
+                    codeChildren={('FINISH')}
                     plugin={true}
                     classProp="max-h-[450px]"
                   />
