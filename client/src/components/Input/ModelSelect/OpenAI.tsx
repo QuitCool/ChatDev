@@ -1,8 +1,8 @@
-import { SelectDropDown } from '~/components/ui';
+import { SelectDropDown, SelectDropDownPop } from '~/components/ui';
 import { cn, cardStyle } from '~/utils/';
 import type { TModelSelectProps } from '~/common';
 
-export default function OpenAI({ conversation, setOption, models }: TModelSelectProps) {
+export default function OpenAI({ conversation, setOption, models, showAbove = true, popover = false }: TModelSelectProps) {
   const modelDisplayNames = {
     'gpt-4-1106-preview': 'GPT 4 Turbo',
     'gpt-4-0613': 'GPT 4',
@@ -11,18 +11,18 @@ export default function OpenAI({ conversation, setOption, models }: TModelSelect
   };
 
   const getModelDisplayName = (modelValue) => modelDisplayNames[modelValue] || modelValue;
-
+  const Menu = popover ? SelectDropDownPop : SelectDropDown;
   const handleModelChange = (selectedDisplayName) => {
     const selectedValue = Object.keys(modelDisplayNames).find(key => modelDisplayNames[key] === selectedDisplayName) || selectedDisplayName;
     setOption('model')(selectedValue);
   };
 
   return (
-    <SelectDropDown
+    <Menu
       value={getModelDisplayName(conversation?.model ?? '')}
       setValue={handleModelChange}
       availableValues={models.map(getModelDisplayName)}
-      showAbove={true}
+      showAbove={showAbove}
       showLabel={false}
       className={cn(
         cardStyle,
