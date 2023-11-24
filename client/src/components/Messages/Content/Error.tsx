@@ -52,7 +52,7 @@ const errorMessages = {
   },
   token_balance: (json: TTokenBalance) => {
     const { balance, tokenCost, promptTokens, generations } = json;
-    const message = `Insufficient Funds! Balance: ${balance}. Prompt tokens: ${promptTokens}. Cost: ${tokenCost}.`;
+    const message =`  رصيدك   (${balance}).  ليس لديك رصيد مجاني كافي,  يمكنك الاشتراك في كل الخدمات بمبلغ 10 دولار او 400 جنيه فقط شهرياً. لطلب رصيد تجريبي او للاشتراك الرجاء التواصل عبر صفحه الفيسبوك بالضغط علي الاسم بالأسفل .`;
     return (
       <>
         {message}

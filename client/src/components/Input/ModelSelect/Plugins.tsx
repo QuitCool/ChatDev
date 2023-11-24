@@ -46,6 +46,9 @@ export default function Plugins({
     return modelNameMappings[modelName] || modelName;
   };
 
+  // Updated to apply aliasModelName to each model in models array
+  const aliasedModels = models.map(model => aliasModelName(model));
+
   useEffect(() => {
     if (isSmallScreen) {
       setVisibility(false);
@@ -110,7 +113,7 @@ export default function Plugins({
       <Menu
         value={aliasModelName(conversation?.model ?? '')}
         setValue={setOption('model')}
-        availableValues={models.map(model => aliasModelName(model))}
+        availableValues={aliasedModels}  // Updated to use aliased model names
         showAbove={showAbove}
         className={cn(cardStyle, 'min-w-60 z-42 flex w-64 sm:w-48', visible ? '' : 'hidden')}
       />
