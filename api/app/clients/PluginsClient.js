@@ -57,14 +57,6 @@ class PluginsClient extends OpenAIClient {
       return 'gpt-3.5-turbo';
     } else if (input.includes('gpt-4')) {
       return 'gpt-4';
-    } else if (input.includes('gpt-4-1106-preview')) {
-      return 'GPT 4 Turbo';
-    } else if (input.includes('gpt-4-vision-preview')) {
-      return 'GPT 4 Vision';
-    } else if (input.includes('gpt-3.5-turbo-1106')) {
-      return 'GPT 3.5 Turbo';
-    } else if (input.includes('gpt-4-0613')) {
-      return 'GPT 4';
     } else {
       return 'gpt-3.5-turbo';
     }
