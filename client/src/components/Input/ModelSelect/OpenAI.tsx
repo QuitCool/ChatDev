@@ -5,9 +5,9 @@ import type { TModelSelectProps } from '~/common';
 export default function OpenAI({ conversation, setOption, models, showAbove = true, popover = false }: TModelSelectProps) {
   const modelDisplayNames = {
     'gpt-4-1106-preview': 'GPT 4 Turbo',
+    'gpt-4-vision-preview': 'GPT 4 Vision',
     'gpt-4-0613': 'GPT 4',
     'gpt-3.5-turbo-1106': 'GPT 3.5 Turbo',
-    // Add other model mappings here if necessary
   };
 
   const getModelDisplayName = (modelValue) => modelDisplayNames[modelValue] || modelValue;
