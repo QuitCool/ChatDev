@@ -88,6 +88,7 @@ Guidelines:
       n: 1,
       // size: '1024x1024'
       size: '1024x1024',
+      model: "dall-e-3"
     });
 
     const theImageUrl = resp.data[0].url;
