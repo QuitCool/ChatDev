@@ -6,7 +6,7 @@ const defaultRate = 6;
  * @type {Object.<string, {prompt: number, completion: number}>}
  */
 const tokenValues = {
-  '8k': { prompt: 30, completion: 60 },
+  '8k': { prompt: 6, completion: 10 },
   '32k': { prompt: 60, completion: 120 },
   '4k': { prompt: 1.5, completion: 2 },
   '16k': { prompt: 3, completion: 4 },
