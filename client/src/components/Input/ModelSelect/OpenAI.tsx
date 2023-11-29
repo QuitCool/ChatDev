@@ -6,7 +6,7 @@ export default function OpenAI({ conversation, setOption, models, showAbove = tr
   const modelDisplayNames = {
     'gpt-4-1106-preview': 'GPT 4',
     'gpt-4-vision-preview': 'GPT 4 Vision',
-    'gpt-4-0613': 'GPT 4 Older',
+    'gpt-4-0613': 'GPT 4 (old)',
     'gpt-3.5-turbo-1106': 'GPT 3.5',
   };
 
