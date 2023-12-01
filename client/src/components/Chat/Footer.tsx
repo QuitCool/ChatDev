@@ -17,9 +17,10 @@ export default function Footer() {
               rel="noreferrer"
               className="underline"
             >
-              {config?.appTitle || 'ChatGPT'} <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/800px-Flag_of_Egypt.svg.png"  style={{ height: '1em' }} /> v1.12.2023
+              {config?.appTitle || 'ChatGPT'} v1.12.2023
             </a>
             {' - '} {localize('com_ui_new_footer')}
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/800px-Flag_of_Egypt.svg.png" alt="Egyptian Flag" style={{ height: '1em', marginLeft: '0.5em' }} />
           </>
         )}
       </span>
