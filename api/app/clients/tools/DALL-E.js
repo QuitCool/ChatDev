@@ -96,9 +96,9 @@ Guidelines:
           break; // If the image is successfully generated, break out of the loop
         }
       } catch (error) {
-        console.error(`Error with model ${model}:`, error);
+        console.error(`Error with the Plugin because of an running upgrade.`, error);
         if (model === models[models.length - 1]) {
-          throw new Error(`All models failed to generate an image.`);
+          throw new Error(`Error with the Plugin model because of an running upgrade`);
         }
         // If an error occurs, continue to the next model
       }
