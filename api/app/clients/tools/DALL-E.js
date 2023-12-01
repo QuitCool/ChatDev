@@ -82,27 +82,12 @@ Guidelines:
   }
 
   async _call(input) {
-    let models = ["dall-e-3", "sdxl", "kandinsky-2.2"];
-    let resp;
-    for (let model of models) {
-      try {
-        resp = await this.openai.images.generate({
-          prompt: this.replaceUnwantedChars(input),
-          n: 1,
-          size: '1024x1024',
-          model: model
-        });
-        if (resp.data && resp.data.length > 0 && resp.data[0].url) {
-          break; // If the image is successfully generated, break out of the loop
-        }
-      } catch (error) {
-        console.error(`Error with the Plugin because of an running upgrade.`, error);
-        if (model === models[models.length - 1]) {
-          throw new Error(`Error with the Plugin model because of an running upgrade`);
-        }
-        // If an error occurs, continue to the next model
-      }
-    }
+    const resp = await this.openai.images.generate({
+      prompt: this.replaceUnwantedChars(input),
+      n: 1,
+      size: '1024x1024',
+      model: "sdxl"
+    });
 
     const theImageUrl = resp.data[0].url;
 
