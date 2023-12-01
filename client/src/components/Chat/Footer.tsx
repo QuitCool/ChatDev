@@ -17,7 +17,7 @@ export default function Footer() {
               rel="noreferrer"
               className="underline"
             >
-              {config?.appTitle || 'ChatGPT'} v1.12.2023 <img src="URL_TO_EGYPTIAN_FLAG_IMAGE" alt="Egyptian Flag" style={{ height: '1em' }} />
+              {config?.appTitle || 'ChatGPT'} v1.12.2023 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/800px-Flag_of_Egypt.svg.png" alt="Egyptian Flag" style={{ height: '1em' }} />
             </a>
             {' - '} {localize('com_ui_new_footer')}
           </>
