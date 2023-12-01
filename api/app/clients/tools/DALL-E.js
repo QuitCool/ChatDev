@@ -84,9 +84,7 @@ Guidelines:
   async _call(input) {
     const resp = await this.openai.images.generate({
       prompt: this.replaceUnwantedChars(input),
-      // TODO: Future idea -- could we ask an LLM to extract these arguments from an input that might contain them?
       n: 1,
-      // size: '1024x1024'
       size: '1024x1024',
       model: "dall-e-3"
     });
