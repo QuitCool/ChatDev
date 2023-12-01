@@ -96,18 +96,27 @@ class DALLE3 extends Tool {
     }
 
     let resp;
-    try {
-      resp = await this.openai.images.generate({
-        model: 'dall-e-3',
-        quality,
-        style,
-        size,
-        prompt: this.replaceUnwantedChars(prompt),
-        n: 1,
-      });
-    } catch (error) {
-      return `Something went wrong when trying to generate the image. The DALL-E API may unavailable:
+    const models = ['dall-e-3', 'sdxl', 'kandinsky-2.2'];
+    for (const model of models) {
+      try {
+        resp = await this.openai.images.generate({
+          model,
+          quality,
+          style,
+          size,
+          prompt: this.replaceUnwantedChars(prompt),
+          n: 1,
+        });
+        break; // If the image generation is successful, break out of the loop
+      } catch (error) {
+        if (models.indexOf(model) === models.length - 1) {
+          // If this is the last model in the array and it still fails, return the error
+          return `Something went wrong when trying to generate the image. The DALL-E API may be unavailable:
 Error Message: ${error.message}`;
+        }
+        // If the current model fails, continue to the next one
+        console.error(`Model ${model} failed: ${error.message}`);
+      }
     }
 
     if (!resp) {
