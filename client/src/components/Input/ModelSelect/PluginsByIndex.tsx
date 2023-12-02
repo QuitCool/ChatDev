@@ -82,8 +82,20 @@ export default function PluginsByIndex({
     return null;
   }
 
+  const modelDisplayNames = {
+    'gpt-4-1106-preview': 'GPT 4',
+    'gpt-4-vision-preview': 'GPT 4 (Vision)',
+    'gpt-4-0613': 'GPT 4 (Old Model)',
+    'gpt-3.5-turbo-1106': 'GPT 3.5',
+  };
+
+  const getModelDisplayName = (modelValue) => modelDisplayNames[modelValue] || modelValue;
   const Menu = popover ? SelectDropDownPop : SelectDropDown;
   const PluginsMenu = popover ? MultiSelectPop : MultiSelectDropDown;
+  const handleModelChange = (selectedDisplayName) => {
+    const selectedValue = Object.keys(modelDisplayNames).find(key => modelDisplayNames[key] === selectedDisplayName) || selectedDisplayName;
+    setOption('model')(selectedValue);
+  };
 
   return (
     <>
@@ -105,9 +117,9 @@ export default function PluginsByIndex({
       {visible && (
         <>
           <Menu
-            value={conversation.model ?? ''}
-            setValue={setOption('model')}
-            availableValues={models}
+            value={getModelDisplayName(conversation?.model ?? '')}
+            setValue={handleModelChange}
+            availableValues={models.map(getModelDisplayName)}
             showAbove={showAbove}
             showLabel={false}
           />

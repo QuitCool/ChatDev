@@ -23,12 +23,12 @@ export const defaultEndpoints: EModelEndpoint[] = [
 ];
 
 export const alternateName = {
-  [EModelEndpoint.openAI]: 'OpenAI',
+  [EModelEndpoint.openAI]: 'ChatGPT (Text, Vision)',
   [EModelEndpoint.assistant]: 'Assistants',
   [EModelEndpoint.azureOpenAI]: 'Azure OpenAI',
   [EModelEndpoint.bingAI]: 'Bing',
   [EModelEndpoint.chatGPTBrowser]: 'ChatGPT',
-  [EModelEndpoint.gptPlugins]: 'Plugins',
+  [EModelEndpoint.gptPlugins]: 'ChatGPT (Plugins)',
   [EModelEndpoint.google]: 'PaLM',
   [EModelEndpoint.anthropic]: 'Anthropic',
 };

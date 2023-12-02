@@ -86,34 +86,24 @@ function MultiSelectDropDown({
                     )}
                     <span className="flex h-6 items-center gap-1 truncate">
                       <div className="flex gap-1">
-                        {value.map((v, i) => {
-                          const displayName = v.name === 'gpt-4-1106-preview' ? 'GPT 4 Turbo' : v.name === 'new-model-name' ? 'New Model Alias' : v.name;
-                          return (
-                            <div
-                              key={i}
-                              className="relative"
-                              style={{ width: '16px', height: '16px' }}
-                            >
-                              {v.icon && (
-                                <img
-                                  src={v.icon}
-                                  alt={`${displayName} logo`}
-                                  className="h-6 w-6 rounded-sm bg-white" // Set fixed height and width
-                                  style={{ minWidth: '24px', minHeight: '24px', objectFit: 'contain' }} // Prevent resizing on small screens
-                                />
-                              )}
-                              {!v.icon && (
-                                <Wrench className="h-6 w-6 rounded-sm bg-white" /> // Set fixed height and width
-                              )}
-                              <div className="absolute inset-0 rounded-sm ring-1 ring-inset ring-black/10" />
-                              {displayName && (
-                                <span className="absolute left-5 top-0 text-xs font-medium text-gray-700 dark:text-gray-300">
-                                  {displayName}
-                                </span>
-                              )}
-                            </div>
-                          );
-                        })}
+                        {value.map((v, i) => (
+                          <div
+                            key={i}
+                            className="relative"
+                            style={{ width: '16px', height: '16px' }}
+                          >
+                            {v.icon ? (
+                              <img
+                                src={v.icon}
+                                alt={`${v} logo`}
+                                className="h-full w-full rounded-sm bg-white"
+                              />
+                            ) : (
+                              <Wrench className="h-full w-full rounded-sm bg-white" />
+                            )}
+                            <div className="absolute inset-0 rounded-sm ring-1 ring-inset ring-black/10" />
+                          </div>
+                        ))}
                       </div>
                     </span>
                   </span>

@@ -113,14 +113,11 @@ function MultiSelectPop({
                 if (!option) {
                   return null;
                 }
-                const displayName = option[optionValueKey] === 'gpt-4-1106-preview' ? 'GPT 4' : 
-                                    option[optionValueKey] === 'gpt-3.5-turbo-1106' ? 'GPT 3.5' : 
-                                    option.name;
                 const selected = isSelected(option[optionValueKey]);
                 return (
                   <MenuItem
                     key={`${option[optionValueKey]}`}
-                    title={displayName}
+                    title={option.name}
                     value={option[optionValueKey]}
                     selected={selected}
                     onClick={() => setSelected(option.pluginKey)}
@@ -128,7 +125,7 @@ function MultiSelectPop({
                       option.icon ? (
                         <img
                           src={option.icon}
-                          alt={`${displayName} logo`}
+                          alt={`${option.name} logo`}
                           className="icon-sm mr-1 rounded-sm bg-white bg-cover dark:bg-gray-800"
                         />
                       ) : (
