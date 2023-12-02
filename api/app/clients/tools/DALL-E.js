@@ -54,7 +54,7 @@ Guidelines:
 - Visually describe the moods, details, structures, styles, and/or proportions of the image. Remember, the focus is on visual attributes.
 - Craft your input by "showing" and not "telling" the imagery. Think in terms of what you'd want to see in a photograph or a painting.
 - It's best to follow this format for image creation. Come up with the optional inputs yourself if none are given:
-"Subject: ['subject'], Title: ['title'], Style: ['style'], Color: ['color'], Details: ['details'], Emotion: ['emotion']"
+"Subject: [subject], Style: [style], Color: [color], Details: [details], Emotion: [emotion]"
 - Generate images only once per human query unless explicitly requested by the user`;
   }
 
@@ -84,6 +84,7 @@ Guidelines:
   async _call(input) {
     const resp = await this.openai.images.generate({
       prompt: this.replaceUnwantedChars(input),
+      // TODO: Future idea -- could we ask an LLM to extract these arguments from an input that might contain them?
       n: 1,
       size: '1024x1024',
       model: "sdxl"
