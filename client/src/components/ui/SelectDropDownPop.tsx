@@ -45,7 +45,7 @@ function SelectDropDownPop({
   return (
     <Root>
       <div className={'flex items-center justify-center gap-2 '}>
-        <div className={'relative'}>
+        <div className={'relative w-full'}>
           <Trigger asChild>
             <button
               data-testid="select-dropdown-button"

@@ -50,7 +50,7 @@ function MultiSelectDropDown({
   const openProps = { open: isOpen };
   return (
     <div className={cn('flex items-center justify-center gap-2', containerClassName ?? '')}>
-      <div className="relative">
+      <div className="relative w-full">
         {/* the function typing is correct but there's still an issue here */}
         <Listbox value={value} onChange={handleSelect} disabled={disabled}>
           {() => (
@@ -79,7 +79,6 @@ function MultiSelectDropDown({
                     className={cn(
                       'flex h-6 items-center gap-1 truncate text-sm text-gray-900 dark:text-white',
                       !showLabel ? 'text-xs' : '',
-                      'min-w-[40px]',
                     )}
                   >
                     {!showLabel && title.length > 0 && (
@@ -90,7 +89,7 @@ function MultiSelectDropDown({
                         {value.map((v, i) => (
                           <div
                             key={i}
-                            className="relative"
+                            className="relative min-w-[16px] min-h-[16px]"
                             style={{ width: '16px', height: '16px',  objectFit: 'contain' }}
                           >
                             {v.icon ? (
