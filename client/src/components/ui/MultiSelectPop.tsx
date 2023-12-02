@@ -64,10 +64,10 @@ function MultiSelectPop({
                     <span className="text-xs text-gray-700 dark:text-gray-500">{title}:</span>
                   )} */}
                   <span className="flex items-center gap-1 ">
-                    <div className="flex gap-1 min-w-full ">
+                    <div className="flex gap-1">
                       {value.length === 0 && 'Select'}
                       {value.map((v, i) => (
-                        <div key={i} className="relative min-w-full ">
+                        <div key={i} className="relative">
                           {v.icon ? (
                             <img
                               src={v.icon}
