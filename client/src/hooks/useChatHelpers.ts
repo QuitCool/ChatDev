@@ -15,7 +15,8 @@ import type {
   TConversation,
   TGetConversationsResponse,
 } from 'librechat-data-provider';
-import type { TAskFunction, ExtendedFile } from '~/common';
+import type { TAskFunction } from '~/common';
+import useSetFilesToDelete from './useSetFilesToDelete';
 import { useAuthContext } from './AuthContext';
 import useNewConvo from './useNewConvo';
 import useUserKey from './useUserKey';
@@ -23,8 +24,10 @@ import store from '~/store';
 
 // this to be set somewhere else
 export default function useChatHelpers(index = 0, paramId: string | undefined) {
-  const [files, setFiles] = useState(new Map<string, ExtendedFile>());
+  const [files, setFiles] = useRecoilState(store.filesByIndex(index));
+  const [showStopButton, setShowStopButton] = useState(true);
   const [filesLoading, setFilesLoading] = useState(false);
+  const setFilesToDelete = useSetFilesToDelete();
 
   const queryClient = useQueryClient();
   const { isAuthenticated } = useAuthContext();
@@ -128,6 +131,7 @@ export default function useChatHelpers(index = 0, paramId: string | undefined) {
       isEdited = false,
     } = {},
   ) => {
+    setShowStopButton(true);
     if (!!isSubmitting || text === '') {
       return;
     }
@@ -190,6 +194,7 @@ export default function useChatHelpers(index = 0, paramId: string | undefined) {
     if (reuseFiles && parentMessage.files?.length) {
       currentMsg.files = parentMessage.files;
       setFiles(new Map());
+      setFilesToDelete({});
     } else if (files.size > 0) {
       currentMsg.files = Array.from(files.values()).map((file) => ({
         file_id: file.file_id,
@@ -199,6 +204,7 @@ export default function useChatHelpers(index = 0, paramId: string | undefined) {
         width: file.width,
       }));
       setFiles(new Map());
+      setFilesToDelete({});
     }
 
     // construct the placeholder response message
@@ -365,5 +371,7 @@ export default function useChatHelpers(index = 0, paramId: string | undefined) {
     invalidateConvos,
     filesLoading,
     setFilesLoading,
+    showStopButton,
+    setShowStopButton,
   };
 }
