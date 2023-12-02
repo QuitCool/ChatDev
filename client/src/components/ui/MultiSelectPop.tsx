@@ -52,7 +52,7 @@ function MultiSelectPop({
               {showLabel && (
                 <label className="block text-xs text-gray-700 dark:text-gray-500 ">{title}</label>
               )}
-              <span className="inline-flex w-full " id={excludeIds[2]}>
+              <span className="inline-flex" id={excludeIds[2]}>
                 <span
                   className={cn(
                     'flex h-6 items-center gap-1  text-sm text-gray-900 dark:text-white',
