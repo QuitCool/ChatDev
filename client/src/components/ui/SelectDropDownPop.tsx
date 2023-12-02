@@ -63,7 +63,7 @@ function SelectDropDownPop({
                   className={cn(
                     'flex h-6 items-center gap-1  text-sm text-gray-900 dark:text-white',
                     !showLabel ? 'text-xs' : '',
-                    'min-w-[75px] font-normal',
+                    'min-w-[40px]',
                   )}
                 >
                   {/* {!showLabel && !emptyTitle && (

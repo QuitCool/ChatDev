@@ -52,11 +52,12 @@ function MultiSelectPop({
               {showLabel && (
                 <label className="block text-xs text-gray-700 dark:text-gray-500 ">{title}</label>
               )}
-              <span className="inline-flex" id={excludeIds[2]}>
+              <span className="inline-flex w-full " id={excludeIds[2]}>
                 <span
                   className={cn(
-                    'flex h-6 items-center gap-1 text-sm text-gray-900 dark:text-white',
+                    'flex h-6 items-center gap-1  text-sm text-gray-900 dark:text-white',
                     !showLabel ? 'text-xs' : '',
+                    'min-w-[40px]',
                   )}
                 >
                   {/* {!showLabel && title.length > 0 && (
@@ -66,13 +67,12 @@ function MultiSelectPop({
                     <div className="flex gap-1">
                       {value.length === 0 && 'Select'}
                       {value.map((v, i) => (
-                        <div key={i} className="relative">
+                        <div key={i} className="relative min-w-[24px]">
                           {v.icon ? (
                             <img
                               src={v.icon}
                               alt={`${v} logo`}
-                              className="icon-lg rounded-sm bg-white"
-                              style={{ objectFit: 'contain' }}
+                              className="icon-lg rounded-sm bg-white min-h-[16px] min-w-[16px]"
                             />
                           ) : (
                             <Wrench className="icon-lg rounded-sm bg-white" />
