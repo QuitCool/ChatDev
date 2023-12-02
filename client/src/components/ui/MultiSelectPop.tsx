@@ -113,7 +113,7 @@ function MultiSelectPop({
                 if (!option) {
                   return null;
                 }
-                const displayName = option[optionValueKey] === 'gpt-4' ? 'GPT 4' : option.name;
+                const displayName = option[optionValueKey] === 'gpt-4-1106-preview' ? 'GPT 4' : option.name;
                 const selected = isSelected(option[optionValueKey]);
                 return (
                   <MenuItem
