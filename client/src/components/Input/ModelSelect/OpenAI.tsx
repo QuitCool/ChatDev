@@ -2,7 +2,7 @@ import { SelectDropDown, SelectDropDownPop } from '~/components/ui';
 import { cn, cardStyle } from '~/utils/';
 import type { TModelSelectProps } from '~/common';
 
-export default function OpenAI({ conversation, setOption, models, showAbove = true, popover = false }: TModelSelectProps) {
+export default function OpenAI({ conversation, setOption, models, showAbove = true, popover = true }: TModelSelectProps) {
   const modelDisplayNames = {
     'gpt-4-1106-preview': 'GPT 4',
     'gpt-4-vision-preview': 'GPT 4 (Vision)',

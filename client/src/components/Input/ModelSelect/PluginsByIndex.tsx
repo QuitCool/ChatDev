@@ -40,7 +40,7 @@ export default function PluginsByIndex({
 
   useEffect(() => {
     if (isSmallScreen) {
-      setVisibility(false);
+      setVisibility(true);
     }
   }, [isSmallScreen]);
 
