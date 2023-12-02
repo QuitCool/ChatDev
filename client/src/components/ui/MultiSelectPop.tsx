@@ -64,18 +64,18 @@ function MultiSelectPop({
                     <span className="text-xs text-gray-700 dark:text-gray-500">{title}:</span>
                   )} */}
                   <span className="flex items-center gap-1 ">
-                    <div className="flex gap-1">
+                    <div className="flex gap-1 min-w-full ">
                       {value.length === 0 && 'Select'}
                       {value.map((v, i) => (
-                        <div key={i} className="relative min-w-[24px]">
+                        <div key={i} className="relative min-w-full ">
                           {v.icon ? (
                             <img
                               src={v.icon}
                               alt={`${v} logo`}
-                              className="icon-lg rounded-sm bg-white min-h-[16px] min-w-[16px]"
+                              className="icon-lg rounded-sm bg-white min-w-full "
                             />
                           ) : (
-                            <Wrench className="icon-lg rounded-sm bg-white" />
+                            <Wrench className="icon-lg rounded-sm bg-white " />
                           )}
                           <div className="absolute inset-0 rounded-sm ring-1 ring-inset ring-black/10" />
                         </div>

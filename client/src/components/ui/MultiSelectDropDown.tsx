@@ -79,13 +79,14 @@ function MultiSelectDropDown({
                     className={cn(
                       'flex h-6 items-center gap-1 truncate text-sm text-gray-900 dark:text-white',
                       !showLabel ? 'text-xs' : '',
+                      'min-w-[40px]',
                     )}
                   >
                     {!showLabel && title.length > 0 && (
                       <span className="text-xs text-gray-700 dark:text-gray-500">{title}:</span>
                     )}
                     <span className="flex h-6 items-center gap-1 truncate">
-                      <div className="flex gap-1">
+                      <div className="flex gap-1 min-w-full ">
                         {value.map((v, i) => (
                           <div
                             key={i}
