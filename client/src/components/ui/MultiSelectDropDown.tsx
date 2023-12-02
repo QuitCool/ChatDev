@@ -86,7 +86,7 @@ function MultiSelectDropDown({
                       <span className="text-xs text-gray-700 dark:text-gray-500">{title}:</span>
                     )}
                     <span className="flex h-6 items-center gap-1 truncate">
-                      <div className="flex gap-1 min-w-full ">
+                      <div className="flex gap-1">
                         {value.map((v, i) => (
                           <div
                             key={i}
