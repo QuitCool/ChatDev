@@ -57,7 +57,6 @@ function MultiSelectPop({
                   className={cn(
                     'flex h-6 items-center gap-1  text-sm text-gray-900 dark:text-white',
                     !showLabel ? 'text-xs' : '',
-                    'min-w-[40px]',
                   )}
                 >
                   {/* {!showLabel && title.length > 0 && (
