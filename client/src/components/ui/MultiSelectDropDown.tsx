@@ -89,8 +89,8 @@ function MultiSelectDropDown({
                         {value.map((v, i) => (
                           <div
                             key={i}
-                            className="relative min-w-[16px] min-h-[16px]"
-                            style={{ width: '16px', height: '16px',  objectFit: 'contain' }}
+                            className="relative"
+                            style={{ width: '16px', height: '16px' }}
                           >
                             {v.icon ? (
                               <img
