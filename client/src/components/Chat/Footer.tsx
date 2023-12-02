@@ -9,7 +9,7 @@ export default function Footer() {
   const egyptianFlagImage = (
     <img 
       src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/800px-Flag_of_Egypt.svg.png" 
-      alt="Egyptian Flag" 
+      alt="🇪🇬" 
       style={{ height: '1em', marginLeft: '0.5em', marginRight: '0.5em' }} 
     />
   );
