@@ -94,14 +94,16 @@ function MultiSelectDropDown({
                               className="relative"
                               style={{ width: '16px', height: '16px' }}
                             >
-                              {v.icon ? (
+                              {v.icon && (
                                 <img
                                   src={v.icon}
                                   alt={`${displayName} logo`}
-                                  className="h-full w-full rounded-sm bg-white"
+                                  className="h-6 w-6 rounded-sm bg-white" // Set fixed height and width
+                                  style={{ minWidth: '24px', minHeight: '24px' }} // Prevent resizing on small screens
                                 />
-                              ) : (
-                                <Wrench className="h-full w-full rounded-sm bg-white" />
+                              )}
+                              {!v.icon && (
+                                <Wrench className="h-6 w-6 rounded-sm bg-white" /> // Set fixed height and width
                               )}
                               <div className="absolute inset-0 rounded-sm ring-1 ring-inset ring-black/10" />
                               {displayName && (
