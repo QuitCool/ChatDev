@@ -29,7 +29,7 @@ export default function PluginsByIndex({
   setOption,
   models,
   showAbove,
-  popover = false,
+  popover = true,
 }: TModelSelectProps) {
   const { data: allPlugins } = useAvailablePluginsQuery();
   const [visible, setVisibility] = useState<boolean>(true);
