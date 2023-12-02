@@ -64,13 +64,13 @@ function MultiSelectPop({
                   )} */}
                   <span className="flex items-center gap-1 ">
                     <div className="flex gap-1">
-                      {value.length === 0 && 'None selected'}
+                      {value.length === 0 && 'Select'}
                       {value.map((v, i) => (
                         <div key={i} className="relative">
                           {v.icon ? (
                             <img
                               src={v.icon}
-                              alt={`${v.name === 'new-model-name' ? 'New Model Alias' : v.name} logo`}
+                              alt={`${v} logo`}
                               className="icon-lg rounded-sm bg-white"
                               style={{ objectFit: 'contain' }}
                             />
