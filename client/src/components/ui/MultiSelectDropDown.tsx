@@ -152,7 +152,7 @@ function MultiSelectDropDown({
                         <span className="flex items-center gap-1.5 truncate">
                           {!option.isButton && (
                             <span className="h-6 w-6 shrink-0">
-                              <div className="relative" style={{ width: '100%', height: '100%' }}>
+                              <div className="relative w-full" style={{ width: '100%', height: '100%' }}>
                                 {option.icon ? (
                                   <img
                                     src={option.icon}
