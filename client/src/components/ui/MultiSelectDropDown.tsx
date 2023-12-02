@@ -87,7 +87,7 @@ function MultiSelectDropDown({
                     <span className="flex h-6 items-center gap-1 truncate">
                       <div className="flex gap-1">
                         {value.map((v, i) => {
-                          const displayName = v.name === 'gpt-4-1106-preview' ? 'GPT 4 Turbo' : v.name;
+                          const displayName = v.name === 'gpt-4-1106-preview' ? 'GPT 4 Turbo' : v.name === 'new-model-name' ? 'New Model Alias' : v.name;
                           return (
                             <div
                               key={i}
@@ -99,7 +99,7 @@ function MultiSelectDropDown({
                                   src={v.icon}
                                   alt={`${displayName} logo`}
                                   className="h-6 w-6 rounded-sm bg-white" // Set fixed height and width
-                                  style={{ minWidth: '24px', minHeight: '24px' }} // Prevent resizing on small screens
+                                  style={{ minWidth: '24px', minHeight: '24px', objectFit: 'contain' }} // Prevent resizing on small screens
                                 />
                               )}
                               {!v.icon && (

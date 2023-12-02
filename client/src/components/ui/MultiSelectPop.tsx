@@ -70,8 +70,9 @@ function MultiSelectPop({
                           {v.icon ? (
                             <img
                               src={v.icon}
-                              alt={`${v} logo`}
+                              alt={`${v.name === 'new-model-name' ? 'New Model Alias' : v.name} logo`}
                               className="icon-lg rounded-sm bg-white"
+                              style={{ objectFit: 'contain' }}
                             />
                           ) : (
                             <Wrench className="icon-lg rounded-sm bg-white" />
