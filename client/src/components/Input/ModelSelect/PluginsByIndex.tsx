@@ -87,6 +87,10 @@ export default function PluginsByIndex({
     'gpt-4-vision-preview': 'GPT 4 (Vision)',
     'gpt-4-0613': 'GPT 4 (Old Model)',
     'gpt-3.5-turbo-1106': 'GPT 3.5',
+    'llama-2-70b-chat': 'LLaMA 2 (70 Billion)',
+    'llama-2-13b-chat': 'LLaMA 2 (13 Billion)',
+    'llama-2-7b-chat': 'LLaMA 2 (7 Billion)',
+    'mistral-7b': 'Mistral (7 Billion)',
   };
 
   const getModelDisplayName = (modelValue) => modelDisplayNames[modelValue] || modelValue;
