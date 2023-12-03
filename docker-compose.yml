@@ -3,7 +3,7 @@ services:
   api:
     container_name: ChatGPT
     ports:
-      - 3080:3080               # Change it to 9000:3080 to use nginx
+      - 3080:3080
     image: chatgpt                # Comment this & uncomment below to build from docker hub image
     build:                                   # ^------
       context: .                              # ^------
@@ -17,7 +17,7 @@ services:
     environment:
       - HOST=0.0.0.0
       - MONGO_URI=mongodb+srv://modb12:t1sjeM9gxrfsOwJT@cluster0.ftwrwgp.mongodb.net/?retryWrites=true
-      - MEILI_HOST=http://meilisearch:7700
+      - MEILI_HOST=https://mili-ized.onrender.com
       - MEILI_HTTP_ADDR=meilisearch:7700
     volumes:
       - /app/client/node_modules
@@ -27,5 +27,3 @@ services:
       - ./.env.production:/app/.env.production
       - /app/api/node_modules
       - ./images:/app/client/public/images
-  volumes:
-      - ./meili_data:/meili_data

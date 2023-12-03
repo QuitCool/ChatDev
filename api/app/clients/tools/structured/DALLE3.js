@@ -51,9 +51,9 @@ class DALLE3 extends Tool {
           'A text description of the desired image, following the rules, up to 4000 characters.',
         ),
       style: z
-        .enum(['vivid', 'natural'])
+        .enum(['vivid', 'natural', 'logo'])
         .describe(
-          'Must be one of `vivid` or `natural`. `vivid` generates hyper-real and dramatic images, `natural` produces more natural, less hyper-real looking images',
+          'Must be one of `vivid` or `natural` or `logo`. `vivid` generates hyper-real and dramatic images, `natural` produces more natural, less hyper-real looking images, `logo` creating illustration circular logo, the background is blank white screen as default for logo.',
         ),
       quality: z
         .enum(['hd', 'standard'])
@@ -96,7 +96,7 @@ class DALLE3 extends Tool {
     }
 
     let resp;
-    const models = ['dall-e-3', 'sdxl', 'kandinsky-2.2'];
+    const models = ['dall-e-3', 'kandinsky-2.2', 'sdxl'];
     for (const model of models) {
       try {
         resp = await this.openai.images.generate({
@@ -111,7 +111,7 @@ class DALLE3 extends Tool {
       } catch (error) {
         if (models.indexOf(model) === models.length - 1) {
           // If this is the last model in the array and it still fails, return the error
-          return `Something went wrong when trying to generate the image. The DALL-E API may be unavailable:
+          return `Something went wrong when trying to generate the image. The API may be unavailable:
 Error Message: ${error.message}`;
         }
         // If the current model fails, continue to the next one
@@ -120,7 +120,7 @@ Error Message: ${error.message}`;
     }
 
     if (!resp) {
-      return 'Something went wrong when trying to generate the image. The DALL-E API may unavailable';
+      return 'Something went wrong when trying to generate the image. The API may unavailable';
     }
 
     const theImageUrl = resp.data[0].url;
@@ -129,7 +129,7 @@ Error Message: ${error.message}`;
       return 'No image URL returned from OpenAI API. There may be a problem with the API or your configuration.';
     }
 
-    const regex = /img-[\w\d]+.png/;
+    const regex = /[\w\d]+.png/;
     const match = theImageUrl.match(regex);
     let imageName = '1.png';
 
