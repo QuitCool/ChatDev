@@ -1,14 +1,14 @@
-// From https://platform.openai.com/docs/api-reference/images/create
+// From https://platform.openai.com/docs/guides/images/usage?context=node
 // To use this tool, you must pass in a configured OpenAIApi object.
 const fs = require('fs');
 const path = require('path');
+const { z } = require('zod');
 const OpenAI = require('openai');
-// const { genAzureEndpoint } = require('../../../utils/genAzureEndpoints');
 const { Tool } = require('langchain/tools');
 const { HttpsProxyAgent } = require('https-proxy-agent');
 const saveImageFromUrl = require('./saveImageFromUrl');
 const extractBaseURL = require('../../../utils/extractBaseURL');
-const { DALLE_REVERSE_PROXY, PROXY } = process.env;
+const { DALLE3_SYSTEM_PROMPT, DALLE_REVERSE_PROXY, PROXY } = process.env;
 class OpenAICreateImage extends Tool {
   constructor(fields = {}) {
     super();
@@ -25,16 +25,13 @@ class OpenAICreateImage extends Tool {
 
     this.openai = new OpenAI(config);
     this.name = 'dall-e';
-    this.description = `You can generate images with 'dall-e'. This tool is exclusively for visual content. Use this tool once per request if the user need 1 image. Don't overloop reusing this tool.
-Guidelines:
-- Visually describe the moods, details, structures, styles, and/or proportions of the image. Remember, the focus is on visual attributes.
-- Craft your input by "showing" and not "telling" the imagery. Think in terms of what you'd want to see in a photograph or a painting.
-- It's best to follow this format for image creation. Come up with the optional inputs yourself if none are given:
-"Subject: [subject], Style: [style], Color: [color], Details: [details], Emotion: [emotion]"
-- Generate images only once per human query unless explicitly requested by the user. if there is more than 1 image generated show all of them.
-- Prompts must be in English. Translate to English if needed`;
+    this.description = `Use DALLE to create images from text descriptions.
+    - It requires prompts to be in English, detailed, and to specify image type and human features for diversity.
+    - Create only one image, without repeating or listing descriptions outside the "prompts" field.
+    - Maintains the original intent of the description, with parameters for image style, quality, and size to tailor the output.`;
     this.description_for_model =
-      `// Whenever a description of an image is given, generate prompts (following these rules), and use dalle to create the image. If the user does not ask for a specific number of images, default to creating 1 prompts to send to dalle that are written to be as diverse as possible. If the user does ask for a specific number of images, Make sure you showing all of them in your first response. if All prompts sent to dalle must abide by the following policies:
+      DALLE3_SYSTEM_PROMPT ??
+      `// Whenever a description of an image is given, generate prompts (following these rules), and use dalle to create the image. If the user does not ask for a specific number of images, default to creating 2 prompts to send to dalle that are written to be as diverse as possible. All prompts sent to dalle must abide by the following policies:
     // 1. Prompts must be in English. Translate to English if needed.
     // 2. One image per function call. Create only 1 image per request unless explicitly told to generate more than 1 image.
     // 3. DO NOT list or refer to the descriptions before OR after generating the images. They should ONLY ever be written out ONCE, in the \`"prompts"\` field of the request. You do not need to ask for permission to generate, just do it!
@@ -46,6 +43,27 @@ Guidelines:
     // - Don't alter memes, fictional character origins, or unseen people. Maintain the original prompt's intent and prioritize quality.
     // The prompt must intricately describe every part of the image in concrete, objective detail. THINK about what the end goal of the description is, and extrapolate that to what would make satisfying images.
     // All descriptions sent to dalle should be a paragraph of text that is extremely descriptive and detailed. Each should be more than 3 sentences long.`;
+    this.schema = z.object({
+      prompt: z
+        .string()
+        .max(4000)
+        .describe(
+          'A text description of the desired image, following the rules, up to 4000 characters.',
+        ),
+      style: z
+        .enum(['hyper-real', 'basic', 'logo'])
+        .describe(
+          'Must be one of `hyper-real` or `basic` or `logo`. `hyper-real` generates vivid and dramatic images, `basic` produces more natural, less hyper-real looking images, more simple and clear `logo` creating illustration circular logo, the background is blank white screen as default for logo.',
+        ),
+      quality: z
+        .enum(['1080p', 'standard'])
+        .describe('The quality of the generated image. Only `1080p` and `standard` are supported.'),
+      size: z
+      .enum(['1024x1024', '1792x1024', '1024x1792'])
+      .describe(
+        'The size of the requested image. Use 1024x1024 (square) as the default, 1792x1024 if the user requests a wide image, and 1024x1792 for full-body portraits. Always include this parameter in the request.',
+      ),
+    });
   }
 
   getApiKey() {
@@ -71,19 +89,44 @@ Guidelines:
     return `![generated image](/${imageUrl})`;
   }
 
-  async _call(input) {
-    const resp = await this.openai.images.generate({
-      prompt: this.replaceUnwantedChars(input),
-      // TODO: Future idea -- could we ask an LLM to extract these arguments from an input that might contain them?
-      n: 1,
-      size: '1024x1024',
-      model: "sdxl",
-    });
+  async _call(data) {
+    const { prompt, quality = 'standard', size = '1024x1024', style = 'hyper-real' } = data;
+    if (!prompt) {
+      throw new Error('Missing required field: prompt');
+    }
+
+    let resp;
+    const models = ['dall-e-3', 'sdxl', 'kandinsky-2.2'];
+    for (const model of models) {
+      try {
+        resp = await this.openai.images.generate({
+          model,
+          quality,
+          style,
+          size,
+          prompt: this.replaceUnwantedChars(prompt),
+          n: 1,
+        });
+        break; // If the image generation is successful, break out of the loop
+      } catch (error) {
+        if (models.indexOf(model) === models.length - 1) {
+          // If this is the last model in the array and it still fails, return the error
+          return `Something went wrong when trying to generate the image. The API may be unavailable:
+Error Message: ${error.message}`;
+        }
+        // If the current model fails, continue to the next one
+        console.error(`Model ${model} failed: ${error.message}`);
+      }
+    }
+
+    if (!resp) {
+      return 'Something went wrong when trying to generate the image. The API may unavailable';
+    }
 
     const theImageUrl = resp.data[0].url;
 
     if (!theImageUrl) {
-      throw new Error('No image URL returned from OpenAI API.');
+      return 'No image URL returned from OpenAI API. There may be a problem with the API or your configuration.';
     }
 
     const regex = /[\w\d]+.png/;
@@ -97,7 +140,16 @@ Guidelines:
       console.log('No image name found in the string.');
     }
 
-    this.outputPath = path.resolve(__dirname, '..', '..', '..', '..', 'client', 'public', 'images');
+    this.outputPath = path.resolve(
+      __dirname,
+      '..',
+      '..',
+      '..',
+      '..',
+      'client',
+      'public',
+      'images',
+    );
     const appRoot = path.resolve(__dirname, '..', '..', '..', '..', 'client');
     this.relativeImageUrl = path.relative(appRoot, this.outputPath);
 

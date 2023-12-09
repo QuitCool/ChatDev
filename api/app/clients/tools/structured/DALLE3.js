@@ -69,7 +69,7 @@ class DALLE3 extends Tool {
   getApiKey() {
     const apiKey = process.env.DALLE_API_KEY || '';
     if (!apiKey) {
-      throw new Error('Missing DALLE_API_KEY environment variable.');
+      throw new Error('Missing MIDJ_API_KEY environment variable.');
     }
     return apiKey;
   }
