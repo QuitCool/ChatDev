@@ -48,7 +48,7 @@ class DALLE3 extends Tool {
         .string()
         .max(4000)
         .describe(
-          'A text description of the desired image, following the rules, up to 4000 characters.',
+          'A text description of the desired image, following the rules, up to 1500 characters.',
         ),
       count: z
       .enum(['4', '8'])
