@@ -63,6 +63,11 @@ class DALLE3 extends Tool {
         .describe(
           'The size of the requested image. Use 1024x1024 (square) as the default, 1792x1024 if the user requests a wide image, and 1024x1792 for full-body portraits. Always include this parameter in the request.',
         ),
+      count: z
+      .enum(['4', '8'])
+      .describe(
+        'The default number of images to generate on midjourney is 4 or the multiply of 4.'
+      ),
     });
   }
 
@@ -90,7 +95,7 @@ class DALLE3 extends Tool {
   }
 
   async _call(data) {
-    const { prompt, quality = 'standard', size = '1024x1024', style = 'vivid' } = data;
+    const { prompt, quality = 'standard', size = '1024x1024', style = 'vivid', count = '4'} = data;
     if (!prompt) {
       throw new Error('Missing required field: prompt');
     }
@@ -104,6 +109,7 @@ class DALLE3 extends Tool {
           quality,
           style,
           size,
+          count,
           prompt: this.replaceUnwantedChars(prompt),
           n: 1,
         });
