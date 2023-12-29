@@ -50,19 +50,6 @@ class DALLE3 extends Tool {
         .describe(
           'A text description of the desired image, following the rules, up to 4000 characters.',
         ),
-      style: z
-        .enum(['vivid', 'natural', 'logo'])
-        .describe(
-          'Must be one of `vivid` or `natural` or `logo`. `vivid` generates hyper-real and dramatic images, `natural` produces more natural, less hyper-real looking images, `logo` creating illustration circular logo, the background is blank white screen as default for logo.',
-        ),
-      quality: z
-        .enum(['hd', 'standard'])
-        .describe('The quality of the generated image. Only `hd` and `standard` are supported.'),
-      size: z
-        .enum(['1024x1024', '1792x1024', '1024x1792'])
-        .describe(
-          'The size of the requested image. Use 1024x1024 (square) as the default, 1792x1024 if the user requests a wide image, and 1024x1792 for full-body portraits. Always include this parameter in the request.',
-        ),
       count: z
       .enum(['4', '8'])
       .describe(
