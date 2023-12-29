@@ -66,7 +66,7 @@ class DALLE3 extends Tool {
       count: z
       .enum(['4', '8'])
       .describe(
-        'The default number of images to generate on midjourney is 4 or the multiply of 4.'
+        'The default number of images to generate on midjourney is 4 or the multiply of 4. provide each image alone.'
       ),
     });
   }
