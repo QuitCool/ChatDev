@@ -95,7 +95,7 @@ class DALLE3 extends Tool {
   }
 
   async _call(data) {
-    const { prompt, quality = 'standard', size = '1024x1024', style = 'vivid', count = '4'} = data;
+    const { prompt, count = '4'} = data;
     if (!prompt) {
       throw new Error('Missing required field: prompt');
     }
@@ -106,9 +106,6 @@ class DALLE3 extends Tool {
       try {
         resp = await this.openai.images.generate({
           model,
-          quality,
-          style,
-          size,
           count,
           prompt: this.replaceUnwantedChars(prompt),
           n: 1,
