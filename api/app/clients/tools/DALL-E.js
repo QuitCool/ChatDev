@@ -96,7 +96,7 @@ class OpenAICreateImage extends Tool {
     }
 
     let resp;
-    const models = ['dall-e-3', 'sdxl', 'kandinsky-3'];
+    const models = ['dall-e-3', 'kandinsky-3', 'sdxl'];
     for (const model of models) {
       try {
         resp = await this.openai.images.generate({
