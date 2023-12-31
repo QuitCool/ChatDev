@@ -93,9 +93,10 @@ class DALLE3 extends Tool {
       try {
         resp = await this.openai.images.generate({
           model,
-          count,
+          width: 0,
+          height: 0,
           prompt: this.replaceUnwantedChars(prompt),
-          n: 1,
+          n: 4,
         });
         break; // If the image generation is successful, break out of the loop
       } catch (error) {
