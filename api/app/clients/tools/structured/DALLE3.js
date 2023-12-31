@@ -25,13 +25,13 @@ class DALLE3 extends Tool {
 
     this.openai = new OpenAI(config);
     this.name = 'dalle';
-    this.description = `Use DALLE to create images from text descriptions.
+    this.description = `Use Midjourney to create images from text descriptions.
     - It requires prompts to be in English, detailed, and to specify image type and human features for diversity.
     - Create only one image, without repeating or listing descriptions outside the "prompts" field.
     - Maintains the original intent of the description, with parameters for image style, quality, and size to tailor the output.`;
     this.description_for_model =
       DALLE3_SYSTEM_PROMPT ??
-      `// Whenever a description of an image is given, generate prompts (following these rules), and use dalle to create the image. If the user does not ask for a specific number of images, default to creating 2 prompts to send to dalle that are written to be as diverse as possible. All prompts sent to dalle must abide by the following policies:
+      `// Whenever a description of an image is given, generate prompts (following these rules), and use Midjourney to create the image. If the user does not ask for a specific number of images, default to creating 2 prompts to send to Midjourney that are written to be as diverse as possible. All prompts sent to Midjourney must abide by the following policies:
     // 1. Prompts must be in English. Translate to English if needed.
     // 2. 4 image per function call. Create only 4 image per request unless explicitly told to generate multiply of 4 image.
     // 3. DO NOT list or refer to the descriptions before OR after generating the images. They should ONLY ever be written out ONCE, in the \`"prompts"\` field of the request. You do not need to ask for permission to generate, just do it!
@@ -43,7 +43,7 @@ class DALLE3 extends Tool {
     // - Use "various" or "diverse" ONLY IF the description refers to groups of more than 3 people. Do not change the number of people requested in the original description.
     // - Don't alter memes, fictional character origins, or unseen people. Maintain the original prompt's intent and prioritize quality.
     // The prompt must intricately describe every part of the image in concrete, objective detail. THINK about what the end goal of the description is, and extrapolate that to what would make satisfying images.
-    // All descriptions sent to dalle should be a paragraph of text that is extremely descriptive and detailed. Each should be more than 3 sentences long.`;
+    // All descriptions sent to Midjourney should be a paragraph of text that is extremely descriptive and detailed. Each should be more than 3 sentences long.`;
     this.schema = z.object({
       prompt: z
         .string()
