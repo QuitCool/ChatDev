@@ -26,12 +26,12 @@ class DALLE3 extends Tool {
     this.openai = new OpenAI(config);
     this.name = 'dalle';
     this.description = `Use dalle to create images from text descriptions.
-    - It requires prompts to be in English, detailed, and to specify image type and human features for diversity.`;
+    - It requires prompts to be in English, detailed, and to specify image type and human features for diversity.
+    - You get four images URL per function call. Visual 4 image in raw per 1 API request unless explicitly told to generate more than 4 images.`;
     this.description_for_model =
       DALLE3_SYSTEM_PROMPT ??
       `// Whenever a description of an image is given, generate prompts (following these rules), and use dalle to create the image. If the user does not ask for a specific number of images, default to creating 2 prompts to send to dalle that are written to be as diverse as possible. All prompts sent to dalle must abide by the following policies:
-    // 1. Prompts must be in English. Translate to English if needed.
-    // 2. You get four images URL per function call. Visual 4 image in raw per 1 request unless explicitly told to generate more than 4 images.`;
+    // 1. Prompts must be in English. Translate to English if needed.`;
     this.schema = z.object({
       prompt: z
         .string()
