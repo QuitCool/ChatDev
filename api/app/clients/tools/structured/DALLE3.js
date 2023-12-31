@@ -24,13 +24,13 @@ class DALLE3 extends Tool {
     }
 
     this.openai = new OpenAI(config);
-    this.name = 'midjourney';
+    this.name = 'dalle';
     this.description = `Use Midjourney to create images from text descriptions.
     - It requires prompts to be in English, detailed, and to specify image type and human features for diversity.
     - Create only one image, without repeating or listing descriptions outside the "prompts" field.
     - Maintains the original intent of the description, with parameters for image style, quality, and size to tailor the output.`;
     this.description_for_model =
-      DALLE3_SYSTEM_PROMPT ??
+      MIDJOURNEY_SYSTEM_PROMPT ??
       `// Whenever a description of an image is given, generate prompts (following these rules), and use Midjourney to create the image. If the user does not ask for a specific number of images, default to creating 2 prompts to send to Midjourney that are written to be as diverse as possible. All prompts sent to Midjourney must abide by the following policies:
     // 1. Prompts must be in English. Translate to English if needed.
     // 2. 4 image per function call. Create only 4 image per request unless explicitly told to generate multiply of 4 image.
