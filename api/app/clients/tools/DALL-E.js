@@ -48,8 +48,21 @@ class OpenAICreateImage extends Tool {
         .string()
         .max(4000)
         .describe(
-          'A text description of the desired image, following the rules, up to 1500 characters.',
+          'A text description of the desired image, following the rules, up to 4000 characters.',
         ),
+      style: z
+        .enum(['hyper-real', 'basic', 'logo'])
+        .describe(
+          'Must be one of `hyper-real` or `basic` or `logo`. `hyper-real` generates vivid and dramatic images, `basic` produces more natural, less hyper-real looking images, more simple and clear `logo` creating illustration circular logo, the background is blank white screen as default for logo.',
+        ),
+      quality: z
+        .enum(['1080p', 'standard'])
+        .describe('The quality of the generated image. Only `1080p` and `standard` are supported.'),
+      size: z
+      .enum(['1024x1024', '1792x1024', '1024x1792'])
+      .describe(
+        'The size of the requested image. Use 1024x1024 (square) as the default, 1792x1024 if the user requests a wide image, and 1024x1792 for full-body portraits. Always include this parameter in the request.',
+      ),
     });
   }
 
@@ -77,13 +90,13 @@ class OpenAICreateImage extends Tool {
   }
 
   async _call(data) {
-    const { prompt } = data;
+    const { prompt, quality = 'standard', size = '1024x1024', style = 'hyper-real' } = data;
     if (!prompt) {
       throw new Error('Missing required field: prompt');
     }
 
     let resp;
-    const models = ['dall-e-3', 'kandinsky-3', 'sdxl'];
+    const models = ['dall-e-3', 'sdxl', 'kandinsky-3'];
     for (const model of models) {
       try {
         resp = await this.openai.images.generate({
