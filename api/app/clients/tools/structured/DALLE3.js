@@ -29,26 +29,12 @@ class DALLE3 extends Tool {
     - It requires prompts to be in English, detailed, and to specify image type and human features for diversity.
     - Create only one image, without repeating or listing descriptions outside the "prompts" field.
     - Maintains the original intent of the description, with parameters for image style, quality, and size to tailor the output.`;
-    this.description_for_model =
-      DALLE3_SYSTEM_PROMPT ??
-      `// Whenever a description of an image is given, generate prompts (following these rules), and use dalle to create the image. If the user does not ask for a specific number of images, default to creating 2 prompts to send to dalle that are written to be as diverse as possible. All prompts sent to dalle must abide by the following policies:
-    // 1. Prompts must be in English. Translate to English if needed.
-    // 2. One image per function call. Create only 1 image per request unless explicitly told to generate more than 1 image.
-    // 3. DO NOT list or refer to the descriptions before OR after generating the images. They should ONLY ever be written out ONCE, in the \`"prompts"\` field of the request. You do not need to ask for permission to generate, just do it!
-    // 4. Always mention the image type (photo, oil painting, watercolor painting, illustration, cartoon, drawing, vector, render, etc.) at the beginning of the caption. Unless the captions suggests otherwise, make one of the images a photo.
-    // 5. Diversify depictions of ALL images with people to always include always DESCENT and GENDER for EACH person using direct terms. Adjust only human descriptions.
-    // - EXPLICITLY specify these attributes, not abstractly reference them. The attributes should be specified in a minimal way and should directly describe their physical form.
-    // - Your choices should be grounded in reality. For example, all of a given OCCUPATION should not be the same gender or race. Additionally, focus on creating diverse, inclusive, and exploratory scenes via the properties you choose during rewrites.  Make choices that may be insightful or unique sometimes.
-    // - Use "various" or "diverse" ONLY IF the description refers to groups of more than 3 people. Do not change the number of people requested in the original description.
-    // - Don't alter memes, fictional character origins, or unseen people. Maintain the original prompt's intent and prioritize quality.
-    // The prompt must intricately describe every part of the image in concrete, objective detail. THINK about what the end goal of the description is, and extrapolate that to what would make satisfying images.
-    // All descriptions sent to dalle should be a paragraph of text that is extremely descriptive and detailed. Each should be more than 3 sentences long.`;
     this.schema = z.object({
       prompt: z
         .string()
         .max(4000)
         .describe(
-          'A text description of the desired image, following the rules, up to 1500 characters.',
+          'A text fixation of the desired image, return the text grammerly fixed at the same length, your prompt for generating 4 images for model called Midjourney V6.',
         ),
       count: z
       .enum(['4', '8'])
