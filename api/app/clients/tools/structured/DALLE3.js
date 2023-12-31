@@ -28,7 +28,8 @@ class DALLE3 extends Tool {
     this.description = `Use DALLE to create images from text descriptions.
     - It requires prompts to be in English, detailed, and to specify image type and human features for diversity.
     - Create only one image, without repeating or listing descriptions outside the "prompts" field.
-    - Maintains the original intent of the description, with parameters for image style, quality, and size to tailor the output.`;
+    - Maintains the original intent of the description, with parameters for image style, quality, and size to tailor the output.
+    - if you recived 4 images, provide them on the UI in raw, one after one, etc.`;
     this.schema = z.object({
       prompt: z
         .string()
@@ -79,8 +80,6 @@ class DALLE3 extends Tool {
       try {
         resp = await this.openai.images.generate({
           model,
-          width: 0,
-          height: 0,
           prompt: this.replaceUnwantedChars(prompt),
           n: 4,
         });
