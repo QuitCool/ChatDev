@@ -84,7 +84,7 @@ class DALLE3 extends Tool {
     }
 
     let resp;
-    const models = ['midjourney'];
+    const models = ['midjourney', 'kandinsky-3'];
     for (const model of models) {
       try {
         resp = await this.openai.images.generate({
