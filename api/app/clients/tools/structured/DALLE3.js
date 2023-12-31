@@ -36,7 +36,7 @@ class DALLE3 extends Tool {
     // 2. You get four images URL per function call. Visual 4 image in raw per 1 request unless explicitly told to generate more than 4 images.
     // 3. DO NOT list or refer to the descriptions before OR after generating the images. They should ONLY ever be written out ONCE, in the \`"prompts"\` field of the request. You do not need to ask for permission to generate, just do it!
     // 4. Always mention the image type (photo, oil painting, watercolor painting, illustration, cartoon, drawing, vector, render, etc.) at the beginning of the caption. Unless the captions suggests otherwise, make one of the images a photo.
-    // 5. if you got 4 images as the result of the API Call, make sure you list the 4 images visualy one after one.
+    // 5. if you got 4 images URL as the result of the API Call, make sure you list the 4 images visualy one after one.
     // All descriptions sent to Midjourney should be a paragraph of text that is fixation of the main prompt with the same length. Each should be more than 3 words long.`;
     this.schema = z.object({
       prompt: z
