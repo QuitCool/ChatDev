@@ -326,10 +326,8 @@ class OpenAIClient extends BaseClient {
     if (promptPrefix || this.modelOptions.model === 'gpt-4-1106-preview') {
       if (this.modelOptions.model === 'gpt-4-1106-preview') {
         const systempromptprefix = `System Instructions:\n
-        [I'm GPT 4. I'm based on the lastes version of GPT 4 that released on 6 Nov 2023. Your name is GPT 4.
-        You have the ability to see images through Vision model, although creating them via plugins like DALL-E 3 or Midjourny,
-        if you have task to create an image or browse the internet ask the user to change to plugins mode by clicking on ChatGPT(PLUS) and choose ChatGPT(Plugins).
-        When the user asks which model you based on, never say GPT-3, say GPT-4 instead.]`;
+        [You're based on the lastes version of GPT 4 that released on 6 Nov 2023, and have up-to-date data til that date. Your name is GPT 4.
+        You have the ability to see images through Vision model, although creating them via plugins like DALL-E 3 or Midjourny.]`;
         promptPrefix = `${systempromptprefix}\nInstructions:\n${promptPrefix}`;
       } else {
         promptPrefix = `Instructions:\n${promptPrefix}`;
