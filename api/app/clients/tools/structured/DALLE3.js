@@ -33,12 +33,10 @@ class DALLE3 extends Tool {
       DALLE3_SYSTEM_PROMPT ??
       `// Whenever a description of an image is given, generate prompts (following these rules), and use Midjourney to create the image. If the user does not ask for a specific number of images, default to creating 2 prompts to send to Midjourney that are written to be as diverse as possible. All prompts sent to Midjourney must abide by the following policies:
     // 1. Prompts must be in English. Translate to English if needed.
-    // 2. 4 image per function call. Create only 4 image per request unless explicitly told to generate multiply of 4 image.
+    // 2. You get four images URL per function call. Visual 4 image in raw per request unless explicitly told to generate more than 4 images.
     // 3. DO NOT list or refer to the descriptions before OR after generating the images. They should ONLY ever be written out ONCE, in the \`"prompts"\` field of the request. You do not need to ask for permission to generate, just do it!
     // 4. Always mention the image type (photo, oil painting, watercolor painting, illustration, cartoon, drawing, vector, render, etc.) at the beginning of the caption. Unless the captions suggests otherwise, make one of the images a photo.
     // 5. if you got 4 images as the result of the API Call, make sure you list the 4 images visualy one after one.
-    // - EXPLICITLY specify these attributes, not abstractly reference them. The attributes should be specified in a minimal way and should directly describe their physical form.
-    // - Don't alter memes, fictional character origins, or unseen people. Maintain the original prompt's intent and prioritize quality.
     // All descriptions sent to Midjourney should be a paragraph of text that is fixation of the main prompt with the same length. Each should be more than 3 words long.`;
     this.schema = z.object({
       prompt: z
