@@ -82,7 +82,7 @@ class DALLE3 extends Tool {
   }
 
   async _call(data) {
-    const { prompt, count = '4'} = data;
+    const { prompt } = data;
     if (!prompt) {
       throw new Error('Missing required field: prompt');
     }
