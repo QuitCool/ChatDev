@@ -28,13 +28,13 @@ class DALLE3 extends Tool {
     this.description = `Use dalle to create images from text descriptions.
     - It requires prompts to be in English, detailed, and to specify image type and human features for diversity.
     - You get four images URL per only one function call. Display 4 image in raw per 1 API request unless explicitly told to generate more than 4 images.
-    - Do only one function call, Then display all the image you get.`;
+    - Create only one prompt, Do only one function call, Then display all the image you get.`;
     this.description_for_model =
       DALLE3_SYSTEM_PROMPT ??
       `// Whenever a description of an image is given, generate prompts (following these rules), and use dalle to create the image. If the user does not ask for a specific number of images, default to creating 2 prompts to send to dalle that are written to be as diverse as possible. All prompts sent to dalle must abide by the following policies:
     // 1. Prompts must be in English. Translate to English if needed.
     // 2. Always end any prompt with the extensions "--v 6 --fast" to make sure that you use version 6 of the model midjurney and on the fast mode.
-    // 3. Do only one function call, Then display all the image you get.`;
+    // 3. Create only one prompt, Do only one function call, Then display all the image you get.`;
     this.schema = z.object({
       prompt: z
         .string()
