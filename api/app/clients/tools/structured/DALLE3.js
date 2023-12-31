@@ -34,7 +34,9 @@ class DALLE3 extends Tool {
       `// Whenever a description of an image is given, generate prompts (following these rules), and use dalle to create the image. If the user does not ask for a specific number of images, default to creating 2 prompts to send to dalle that are written to be as diverse as possible. All prompts sent to dalle must abide by the following policies:
     // 1. Prompts must be in English. Translate to English if needed.
     // 2. Always end any prompt with the extensions "--v 6 --fast" to make sure that you use version 6 of the model midjurney and on the fast mode.
-    // 3. Create only one prompt, Do only one function call, Then display all the image you get.`;
+    // 3. Create only one prompt, Do only one function call, Then display all the image you get.
+    // 4. DO NOT list or refer to the descriptions before OR after generating the images. They should ONLY ever be written out ONCE, in the \`"prompts"\` field of the request. You do not need to ask for permission to generate, just do it!
+    `;
     this.schema = z.object({
       prompt: z
         .string()
