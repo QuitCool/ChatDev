@@ -51,11 +51,6 @@ class DALLE3 extends Tool {
         .describe(
           'A text fixation of the desired image, return the text grammerly fixed at the same length, your prompt for generating 4 images for model called Midjourney V6.',
         ),
-      count: z
-      .enum(['4', '8'])
-      .describe(
-        'The default number of images to generate on midjourney is 4 or the multiply of 4. provide each image alone.'
-      ),
     });
   }
 
