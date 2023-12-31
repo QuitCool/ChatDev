@@ -24,7 +24,7 @@ class DALLE3 extends Tool {
     }
 
     this.openai = new OpenAI(config);
-    this.name = 'dalle';
+    this.name = 'midjourney';
     this.description = `Use Midjourney to create images from text descriptions.
     - It requires prompts to be in English, detailed, and to specify image type and human features for diversity.
     - Create only one image, without repeating or listing descriptions outside the "prompts" field.

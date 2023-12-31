@@ -32,7 +32,7 @@
   },
   {
     "name": "Midjoureny",
-    "pluginKey": "dalle",
+    "pluginKey": "midjourney",
     "description": "[Midjoureny] Create realistic images and art from a description in natural language",
     "icon": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Midjourney_Emblem.png",
     "authConfig": [
