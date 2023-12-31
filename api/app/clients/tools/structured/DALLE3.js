@@ -33,7 +33,7 @@ class DALLE3 extends Tool {
       DALLE3_SYSTEM_PROMPT ??
       `// Whenever a description of an image is given, generate prompts (following these rules), and use dalle to create the image. If the user does not ask for a specific number of images, default to creating 2 prompts to send to dalle that are written to be as diverse as possible. All prompts sent to dalle must abide by the following policies:
     // 1. Prompts must be in English. Translate to English if needed.
-    // 2. One image per function call. Create only 1 image per request unless explicitly told to generate more than 1 image.
+    // 2. 4 image per function call. Create only 4 image per request unless explicitly told to generate multiply of 4 image.
     // 3. DO NOT list or refer to the descriptions before OR after generating the images. They should ONLY ever be written out ONCE, in the \`"prompts"\` field of the request. You do not need to ask for permission to generate, just do it!
     // 4. Always mention the image type (photo, oil painting, watercolor painting, illustration, cartoon, drawing, vector, render, etc.) at the beginning of the caption. Unless the captions suggests otherwise, make one of the images a photo.
     // 5. Diversify depictions of ALL images with people to always include always DESCENT and GENDER for EACH person using direct terms. Adjust only human descriptions.
