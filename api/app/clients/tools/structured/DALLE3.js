@@ -45,7 +45,7 @@ class DALLE3 extends Tool {
         .string()
         .max(4000)
         .describe(
-          'A text fixation of the desired image, return the text grammerly fixed at the same length, your prompt for generating 4 images for model called Midjourney V6.',
+          'A text (fixed) of the desired image, return the text grammerly fixed at the same length, your prompt for generating 4 images from model called Midjourney V6.',
         ),
     });
   }
