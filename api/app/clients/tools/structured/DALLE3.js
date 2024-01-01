@@ -50,7 +50,7 @@ class DALLE3 extends Tool {
         .string()
         .max(4000)
         .describe(
-          'A text description of the desired image, following the rules, up to 100 words, make sure you end the prompt with "--v 6 --fast".',
+          'A given description of the desired image, add short enhance descriptions after it, make sure you end the prompt with "--v 6 --fast".',
         ),
     });
   }
