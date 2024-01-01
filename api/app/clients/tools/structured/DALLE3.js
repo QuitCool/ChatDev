@@ -45,7 +45,7 @@ class DALLE3 extends Tool {
     // The prompt must intricately describe every part of the image in concrete, objective detail. THINK about what the end goal of the description is, and extrapolate that to what would make satisfying images.
     // All descriptions sent to dalle should be a paragraph of text that is extremely descriptive and detailed. Each should be more than 10 words long.
     // MAKE SURE that the end result is one prompt ready to send to dalle and that prompt contains the main given prompt (fixed) and 3 or 4 short descriptions (2 words) after it with ',' after each one.
-    // DON'T add new ideas to the image given prompt instead of that detail the given prompt to enhance the image logic and quality in the descriptions after it.`;
+    // DON'T add new ideas to the descriptions after the given prompt, instead of that add enhance descriptions or arguments that relate to the given prompt not new things.`;
     this.schema = z.object({
       prompt: z
         .string()
