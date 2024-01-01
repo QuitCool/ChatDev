@@ -42,14 +42,15 @@ class DALLE3 extends Tool {
     // - Your choices should be grounded in reality. For example, all of a given OCCUPATION should not be the same gender or race. Additionally, focus on creating diverse, inclusive, and exploratory scenes via the properties you choose during rewrites.  Make choices that may be insightful or unique sometimes.
     // - Use "various" or "diverse" ONLY IF the description refers to groups of more than 3 people. Do not change the number of people requested in the original description.
     // - Don't alter memes, fictional character origins, or unseen people. Maintain the original prompt's intent and prioritize quality.
-    // The prompt must intricately describe every part of the image in brevity, objective detail. THINK about what the end goal of the description is, and extrapolate that to what would make satisfying images.
-    // All descriptions sent to dalle should be a paragraph of text that is extremely close to the given prompt and in the same length but fixed from any language or grammer issues. Each should be more than 3 words long.`;
+    // The prompt must intricately describe every part of the image in concrete, objective detail. THINK about what the end goal of the description is, and extrapolate that to what would make satisfying images.
+    // All descriptions sent to dalle should be a paragraph of text that is extremely descriptive and detailed. Each should be more than 10 words long.
+    // make sure that the end result is one prompt ready to send to dalle and that prompt contains the main given prompt (fixed) and 3 or 4 short descriptions (2 words) after it with ',' after each one.`;
     this.schema = z.object({
       prompt: z
         .string()
         .max(4000)
         .describe(
-          'A text description of the desired image, following the rules, up to 100 words., your prompt for generating 4 images from model called Midjourney V6. make sure you end the prompt with "--v 6 --fast".',
+          'A text description of the desired image, following the rules, up to 100 words, make sure you end the prompt with "--v 6 --fast".',
         ),
     });
   }
