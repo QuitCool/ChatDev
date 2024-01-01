@@ -18,7 +18,7 @@ export default function Footer() {
             rel="noreferrer"
             className="underline"
           >
-            {config?.appTitle || 'ChatGPT'} v30.12.23
+            {config?.appTitle || 'ChatGPT'} v1.1.24
           </a>
           {' - '}. {localize('com_ui_pay_per_call')}
         </>
