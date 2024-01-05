@@ -54,7 +54,7 @@ class OpenAICreateImage extends Tool {
       style: z
         .enum(['hyper-real', 'basic', 'logo'])
         .describe(
-          'Must be one of `hyper-real` or `basic` or `logo`. `hyper-real` generates vivid and dramatic images, `basic` produces more natural, less hyper-real looking images, more simple and clear `logo` creating illustration circular logo, the background is blank white screen as default for logo.',
+          'Must be one of `hyper-real` or `basic` or `logo`. `hyper-real` generates vivid and dramatic images, `basic` produces more natural, less hyper-real looking images, more simple and clear `logo` creating illustration circular logo, the background is blank white screen as default for logo,If the description has text for the company name or similar, make sure it appears clearly and is written right on the logo image.',
         ),
       quality: z
         .enum(['1080p', 'standard'])
