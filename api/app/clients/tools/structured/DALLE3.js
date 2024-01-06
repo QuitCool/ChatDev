@@ -88,12 +88,11 @@ class DALLE3 extends Tool {
     const models = ['midjourney', 'dall-e-3', 'kandinsky-3'];
     for (const model of models) {
       try {
-        let imageGenerationResponse = await this.openai.images.generate({
+        resp = await this.openai.images.generate({
           model,
           prompt: this.replaceUnwantedChars(prompt),
-          n: 1,
+          n: 4,
         });
-        resp = imageGenerationResponse;
         break; // If the image generation is successful, break out of the loop
       } catch (error) {
         if (models.indexOf(model) === models.length - 1) {
@@ -104,38 +103,57 @@ Error Message: ${error.message}`;
         // If the current model fails, continue to the next one
         console.error(`Model ${model} failed: ${error.message}`);
       }
-    resp = imageGenerationResponse;
     }
 
     if (!resp) {
       return 'Something went wrong when trying to generate the image. The API may unavailable';
     }
 
-    if (!resp.data || resp.data.length === 0) {
+    const theImageUrl = resp.data[0].url;
+
+    if (!theImageUrl) {
       return 'No image URL returned from OpenAI API. There may be a problem with the API or your configuration.';
     }
 
-    const imageMarkdownUrls = resp.data.map((imageData, index) => {
-      const imageUrl = imageData.url;
-      const regex = /[\w\d]+.png/;
-      const match = imageUrl.match(regex);
-      let imageName = `${index + 1}.png`;
+    const regex = /[\w\d]+.png/;
+    const match = theImageUrl.match(regex);
+    let imageName = '1.png';
 
-      if (match) {
-        imageName = match[0];
-      }
+    if (match) {
+      imageName = match[0];
+      console.log(imageName); // Output: img-lgCf7ppcbhqQrz6a5ear6FOb.png
+    } else {
+      console.log('No image name found in the string.');
+    }
 
-      // Check if directory exists, if not create it
-      if (!fs.existsSync(this.outputPath)) {
-        fs.mkdirSync(this.outputPath, { recursive: true });
-      }
+    this.outputPath = path.resolve(
+      __dirname,
+      '..',
+      '..',
+      '..',
+      '..',
+      '..',
+      'client',
+      'public',
+      'images',
+    );
+    const appRoot = path.resolve(__dirname, '..', '..', '..', '..', '..', 'client');
+    this.relativeImageUrl = path.relative(appRoot, this.outputPath);
 
-      // Save the image and return the markdown image URL
-      saveImageFromUrl(imageUrl, this.outputPath, imageName);
-      return this.getMarkdownImageUrl(imageName); // Return the markdown image URL for each image
-    });
+    // Check if directory exists, if not create it
+    if (!fs.existsSync(this.outputPath)) {
+      fs.mkdirSync(this.outputPath, { recursive: true });
+    }
 
-    return imageMarkdownUrls.join('\n'); // Join all markdown image URLs with a newline
+    try {
+      await saveImageFromUrl(theImageUrl, this.outputPath, imageName);
+      this.result = this.getMarkdownImageUrl(imageName);
+    } catch (error) {
+      console.error('Error while saving the image:', error);
+      this.result = theImageUrl;
+    }
+
+    return this.result;
   }
 }
 
