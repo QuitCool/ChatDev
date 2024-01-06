@@ -111,8 +111,6 @@ Error Message: ${error.message}`;
       return 'Something went wrong when trying to generate the image. The API may unavailable';
     }
 
-    const theImageUrl = resp.data[0].url;
-
     if (!resp.data || resp.data.length === 0) {
       return 'No image URL returned from OpenAI API. There may be a problem with the API or your configuration.';
     }
