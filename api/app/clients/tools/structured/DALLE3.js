@@ -88,9 +88,10 @@ class DALLE3 extends Tool {
     const models = ['midjourney', 'dall-e-3', 'kandinsky-3'];
     for (const model of models) {
       try {
-        resp = await this.openai.images.generateMultiple({
+        resp = await this.openai.images.generate({
           model,
           prompt: this.replaceUnwantedChars(prompt),
+          n: 4,
           n: 4,
         });
         break; // If the image generation is successful, break out of the loop
