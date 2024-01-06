@@ -91,8 +91,9 @@ class DALLE3 extends Tool {
         let imageGenerationResponse = await this.openai.images.generate({
           model,
           prompt: this.replaceUnwantedChars(prompt),
-          n: 4,
+          n: 1,
         });
+        resp = imageGenerationResponse;
         break; // If the image generation is successful, break out of the loop
       } catch (error) {
         if (models.indexOf(model) === models.length - 1) {
@@ -104,6 +105,7 @@ Error Message: ${error.message}`;
         console.error(`Model ${model} failed: ${error.message}`);
       }
     resp = imageGenerationResponse;
+    }
 
     if (!resp) {
       return 'Something went wrong when trying to generate the image. The API may unavailable';
@@ -132,12 +134,10 @@ Error Message: ${error.message}`;
 
       // Save the image and return the markdown image URL
       saveImageFromUrl(imageUrl, this.outputPath, imageName);
-      return this.getMarkdownImageUrl(imageName);
-    // Removed incorrect else block
+      return this.getMarkdownImageUrl(imageName); // Return the markdown image URL for each image
+    });
 
-    // Removed incorrect try-catch block
-
-    return imageMarkdownUrls.join('\n');
+    return imageMarkdownUrls.join('\n'); // Join all markdown image URLs with a newline
   }
 }
 
