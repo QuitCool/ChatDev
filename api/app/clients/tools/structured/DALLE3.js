@@ -103,7 +103,7 @@ Error Message: ${error.message}`;
         // If the current model fails, continue to the next one
         console.error(`Model ${model} failed: ${error.message}`);
       }
-    } resp = imageGenerationResponse;
+    resp = imageGenerationResponse;
 
     if (!resp) {
       return 'Something went wrong when trying to generate the image. The API may unavailable';
@@ -133,27 +133,9 @@ Error Message: ${error.message}`;
       // Save the image and return the markdown image URL
       saveImageFromUrl(imageUrl, this.outputPath, imageName);
       return this.getMarkdownImageUrl(imageName);
-    } else {
-      console.log('No image name found in the string.');
-    }
+    // Removed incorrect else block
 
-    this.outputPath = path.resolve(
-      __dirname,
-      '..',
-      '..',
-      '..',
-      '..',
-      '..',
-      'client',
-      'public',
-      'images',
-    );
-      await saveImageFromUrl(theImageUrl, this.outputPath, imageName);
-      this.result = this.getMarkdownImageUrl(imageName);
-    } catch (error) {
-      console.error('Error while saving the image:', error);
-      this.result = theImageUrl;
-    }
+    // Removed incorrect try-catch block
 
     return imageMarkdownUrls.join('\n');
   }
