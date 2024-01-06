@@ -92,7 +92,6 @@ class DALLE3 extends Tool {
           model,
           prompt: this.replaceUnwantedChars(prompt),
           n: 4,
-          n: 4,
         });
         break; // If the image generation is successful, break out of the loop
       } catch (error) {

@@ -43,18 +43,19 @@ class OpenAICreateImage extends Tool {
     // - Use "various" or "diverse" ONLY IF the description refers to groups of more than 3 people. Do not change the number of people requested in the original description.
     // - Don't alter memes, fictional character origins, or unseen people. Maintain the original prompt's intent and prioritize quality.
     // The prompt must intricately describe every part of the image in concrete, objective detail. THINK about what the end goal of the description is, and extrapolate that to what would make satisfying images.
-    // All descriptions sent to dalle should be a paragraph of text that is extremely descriptive and detailed. Each should be more than 3 sentences long.`;
+    // All descriptions sent to dalle should be a paragraph of text that is extremely descriptive and detailed. Each should be more than 5 words long.
+    // MAKE SURE that the end result is the same given description prompt (language and grammer fixed) with 3 or 4 short descriptions (2 words) after it with ',' after each one.`;
     this.schema = z.object({
       prompt: z
         .string()
         .max(4000)
         .describe(
-          'A text description of the desired image, following the rules, up to 4000 characters.',
+          'A given description of the desired image, add short enhance descriptions after it.',
         ),
       style: z
         .enum(['hyper-real', 'basic', 'logo'])
         .describe(
-          'Must be one of `hyper-real` or `basic` or `logo`. `hyper-real` generates vivid and dramatic images, `basic` produces more natural, less hyper-real looking images, more simple and clear `logo` creating illustration circular logo, the background is blank white screen as default for logo,If the description has text for the company name or similar, make sure it appears clearly and is written right on the logo image.',
+          'Must be one of `hyper-real` or `basic` or `logo`. `hyper-real` generates vivid and dramatic images, `basic` produces more natural, less hyper-real looking images, more simple and clear `logo` creating illustration circular logo, the background is blank white screen as default, If the description has text for the company name or similar, make sure it appears clearly and is written right on the logo image.',
         ),
       quality: z
         .enum(['1080p', 'standard'])
@@ -97,7 +98,7 @@ class OpenAICreateImage extends Tool {
     }
 
     let resp;
-    const models = ['dall-e-3', 'sdxl', 'kandinsky-3'];
+    const models = ['dall-e-3'];
     for (const model of models) {
       try {
         resp = await this.openai.images.generate({
