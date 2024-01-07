@@ -41,7 +41,7 @@ class DALLE3 extends Tool {
     // All descriptions sent to dalle should be a paragraph of text. Each should be more than 5 words long.
     // MAKE SURE that the end result is the same given description prompt (language and grammer fixed) with 2-5 parameters after it, then end with the arguments "--v 6", and make sure you didn't add any new items to the image or change the wanted mean of it, You will get 4 images (not 2 images or 1 image) so make sure you know that
     // If the description written in English, Send it directly to dalle without any modifications at all, Also if there's missing spaces after or before "," DON'T add them, The only modification you have to do all the times is adding "--v 6" at the end, if the description have the word "Upscale" add the argument "--upscale" at the end too, you can also use the argument "--ar 16:9" to create landscape images or "--ar 4:7" to create mobile background images (or any other ratio after --ar ), Make sure you use the same written description if it's written in English.
-    // Basic Parameters, The next is 17 basic parameters use whatever you find right to use for the description, Add them at the end of the prompt:
+    // Basic Parameters, The next is 17 basic parameters use whatever you find right to use for the description, Add them at the end of the prompt (if the description has parameters don't do this step):
     // 1. Aspect Ratios
     // --aspect, or --ar Change the aspect ratio of a generation.
     // Common Midjourney Aspect Ratios
