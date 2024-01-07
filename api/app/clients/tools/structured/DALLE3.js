@@ -31,28 +31,64 @@ class DALLE3 extends Tool {
     - Maintains the original intent of the description, with parameters for image style, quality, and size to tailor the output.`;
     this.description_for_model =
       DALLE3_SYSTEM_PROMPT ??
-      `// Whenever a description of an image is given, generate prompts (following these rules), and use dalle to create the image. If the user does not ask for a specific number of images, default to creating 2 prompts to send to dalle that are written to be as diverse as possible. All prompts sent to dalle must abide by the following policies:
+      `// Whenever a description of an image is given, generate prompt (following these rules), All prompts sent to dalle must abide by the following policies:
     // 1. Prompts must be in English. Translate to English if needed.
-    // 2. One image per function call. Create only 1 image per request unless explicitly told to generate more than 1 image.
-    // 3. DO NOT list or refer to the descriptions before OR after generating the images. They should ONLY ever be written out ONCE, in the \`"prompts"\` field of the request. You do not need to ask for permission to generate, just do it!
-    // 4. Always mention the image type (photo, oil painting, watercolor painting, illustration, cartoon, drawing, vector, render, etc.) at the beginning of the caption. Unless the captions suggests otherwise, make one of the images a photo.
-    // 5. Diversify depictions of ALL images with people to always include always DESCENT and GENDER for EACH person using direct terms. Adjust only human descriptions.
-    // 6. Always end any prompt with the extensions "--v 6 --fast" to make sure that you use version 6 of the model midjurney and on the fast mode.
-    // 7. You have the ability to create images by analyzing other images from URLs. If the description has a URL for an image, put it between "<>" at the start of the prompt that will be sent to dalle, Then add a new argument at the end "--c 0".
-    // - EXPLICITLY specify these attributes, not abstractly reference them. The attributes should be specified in a minimal way and should directly describe their physical form.
-    // - Your choices should be grounded in reality. For example, all of a given OCCUPATION should not be the same gender or race. Additionally, focus on creating diverse, inclusive, and exploratory scenes via the properties you choose during rewrites.  Make choices that may be insightful or unique sometimes.
-    // - Use "various" or "diverse" ONLY IF the description refers to groups of more than 3 people. Do not change the number of people requested in the original description.
-    // - Don't alter memes, fictional character origins, or unseen people. Maintain the original prompt's intent and prioritize quality.
-    // THINK about what the end goal of the description is, and extrapolate that to what would make satisfying images.
+    // 2. DO NOT list or refer to the descriptions before OR after generating the images. They should ONLY ever be written out ONCE, in the \`"prompts"\` field of the request. You do not need to ask for permission to generate, just do it!
+    // 4. Always end any prompt with the extension "--v 6" to make sure that you use version 6 of the model midjurney.
+    // 5. You have the ability to create images by analyzing other images from URLs. If the description has a URL for an image, put it between "<>" at the start before the description that comes with the URL.
+    // 6. DO NOT say what you will do , Just do it directly (Just generate the images directly).
+    // 7. If the user reference a previous image, you should start your prompt with "[gen_id]" from the image metadata.
     // All descriptions sent to dalle should be a paragraph of text. Each should be more than 5 words long.
-    // MAKE SURE that the end result is the same given description prompt (language and grammer fixed) with 3 or 4 short descriptions (2 words) after it with ',' after each one, then end with the arguments "--v 6 --fast", and make sure you didn't add any new items to the image or change the wanted mean of it, You will get 4 images (not 2 images or 1 image) so make sure you know that
-    // If the description written in English, Send it directly to dalle without any modifications at all, Also if there's missing spaces after or before "," DON'T add them, The only modification you have to do all the times is adding "--v 6 --fast" at the end, if the description have the word "Upscae" add the argument "--upscale" at the end too, you can also use the argument "--ar 16:9" to create landscape images or "--ar 4:7" to create mobile background images (or any other ratio after --ar ), Make sure you use the same written description if it's written in English.`;
+    // MAKE SURE that the end result is the same given description prompt (language and grammer fixed) with 2-5 parameters after it, then end with the arguments "--v 6", and make sure you didn't add any new items to the image or change the wanted mean of it, You will get 4 images (not 2 images or 1 image) so make sure you know that
+    // If the description written in English, Send it directly to dalle without any modifications at all, Also if there's missing spaces after or before "," DON'T add them, The only modification you have to do all the times is adding "--v 6" at the end, if the description have the word "Upscale" add the argument "--upscale" at the end too, you can also use the argument "--ar 16:9" to create landscape images or "--ar 4:7" to create mobile background images (or any other ratio after --ar ), Make sure you use the same written description if it's written in English.
+    // Basic Parameters, The next is 17 basic parameters use whatever you find right to use for the description, Add them at the end of the prompt:
+    // 1. Aspect Ratios
+    // --aspect, or --ar Change the aspect ratio of a generation.
+    // Common Midjourney Aspect Ratios
+    // --aspect 1:1 Default aspect ratio.
+    // --aspect 5:4 Common frame and print ratio.
+    // --aspect 3:2 Common in print photography.
+    // --aspect 7:4 Close to HD TV screens and smartphone screens.
+    // 2. Chaos
+    // --chaos <number 0-100> Change how varied the results will be. Higher values produce more unusual and unexpected generations.
+    // 3. Fast
+    // --fast override your current setting and run a single job using Fast Mode.
+    // 4. Image Weight
+    // --iw <0-2> Sets image prompt weight relative to text weight. The default value is 1.
+    // 5. No
+    // --no Negative prompting, [--no plants] would try to remove plants from the image use it to delete anything from the image, Larger values are rounded down to 1.
+    // 6. Quality
+    // --quality <.25, .5, or 1>, or --q <.25, .5, or 1> How much rendering quality time you want to spend. The default value is 1. Higher values use more GPU minutes; lower values use less.
+    // 7. Random
+    // --style random, add a random 32 base styles Style Tuner code to your prompt. You can also use --style random-16, --style random-64 or --style random-128 to use random results from other lengths of Style Tuners.
+    // 8. Relax
+    //--relax override your current setting and run a single job using Relax Mode.
+    // 9. Repeat
+    // --repeat <1-40>, or --r <1-40> Create multiple Jobs from a single prompt. --repeat is useful for quickly rerunning a job multiple times.
+    // 10. Seed
+    // --seed <integer between 0-4294967295> The Midjourney bot uses a seed number to create a field of visual noise, like television static, as a starting point to generate the initial image grids. Seed numbers are generated randomly for each image but can be specified with the --seed or --sameseed parameter. Using the same seed number and prompt will produce similar ending images (IMPORTANT NOTE).
+    // 11. Stop
+    // --stop <integer between 10-100> Use the --stop parameter to finish a Job partway through the process. Stopping a Job at an earlier percentage can create blurrier, less detailed results.
+    // 12. Style
+    // --style <raw> Switch between versions of the Midjourney Model Version 5.1 and 5.2.
+    // --style <4a, 4b, or 4c> Switch between versions of the Midjourney Model Version 4.
+    // --style <cute, expressive, original, or scenic> Switch between versions of the Niji Model Version 5.
+    // 13. Stylize
+    // --stylize <number>, or --s <number> parameter influences how strongly Midjourney's default aesthetic style is applied to Jobs.
+    // 14. Tile
+    // --tile parameter generates images that can be used as repeating tiles to create seamless patterns, if the user need to use tile (repeating pattern) you should switch to version 5.2 "--v 5.2".
+    // 15. Turbo
+    // --turbo override your current setting and run a single job using Turbo Mode.
+    // 16. Weird
+    // --weird <number 0-3000>, or --w <number 0-3000> Explore unusual aesthetics with the experimental --weird parameter.
+    // 17. Niji
+    // --niji 5 An alternative model focused on anime-style images.`;
     this.schema = z.object({
       prompt: z
         .string()
         .max(4000)
         .describe(
-          'A given description of the desired image, add short enhance descriptions after it, make sure you end the prompt with "--v 6 --fast".',
+          'A given description of the desired image, add short enhance descriptions after it, make sure you end the prompt with "--v 6".',
         ),
     });
   }
