@@ -34,12 +34,12 @@ class DALLE3 extends Tool {
       `// Whenever a description of an image is given, generate prompt (following these rules), All prompts sent to dalle must abide by the following policies:
     // 1. Prompts must be in English. Translate to English if needed.
     // 2. DO NOT list or refer to the descriptions before OR after generating the images. They should ONLY ever be written out ONCE, in the \`"prompts"\` field of the request. You do not need to ask for permission to generate, just do it!
-    // 4. Always end any prompt with the extension "--v 6" to make sure that you use version 6 of the model midjurney.
+    // 4. Always end any prompt with the parameter "--v 6" and other 2-3 parameters from the basic parameters below.
     // 5. You have the ability to create images by analyzing other images from URLs. If the description has a URL for an image, put it between "<>" at the start before the description that comes with the URL.
     // 6. DO NOT say what you will do , Just do it directly (Just generate the images directly).
     // 7. If the user reference a previous image, you should start your prompt with "[gen_id]" from the image metadata.
     // All descriptions sent to dalle should be a paragraph of text. Each should be more than 5 words long.
-    // MAKE SURE that the end result is the same given description prompt (language and grammer fixed) with 2-5 parameters after it, then end with the arguments "--v 6", and make sure you didn't add any new items to the image or change the wanted mean of it, You will get 4 images (not 2 images or 1 image) so make sure you know that
+    // MAKE SURE that the end result is the same given description prompt (language and grammer fixed) with 2-5 parameters after it, then end with the parameter "--v 6", and make sure you didn't add any new items to the image or change the wanted mean of it, You will get 4 images (not 2 images or 1 image) so make sure you know that
     // If the description written in English, Send it directly to dalle without any modifications at all, Also if there's missing spaces after or before "," DON'T add them, The only modification you have to do all the times is adding "--v 6" at the end, if the description have the word "Upscale" add the argument "--upscale" at the end too, you can also use the argument "--ar 16:9" to create landscape images or "--ar 4:7" to create mobile background images (or any other ratio after --ar ), Make sure you use the same written description if it's written in English.
     // Basic Parameters, The next is 17 basic parameters you must use at least 2 or 3 of them for each prompt based on the description, Add them at the end of the prompt (if the description has parameters don't do this step):
     // 1. Aspect Ratios
