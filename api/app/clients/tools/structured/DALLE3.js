@@ -38,6 +38,7 @@ class DALLE3 extends Tool {
     // 4. Always mention the image type (photo, oil painting, watercolor painting, illustration, cartoon, drawing, vector, render, etc.) at the beginning of the caption. Unless the captions suggests otherwise, make one of the images a photo.
     // 5. Diversify depictions of ALL images with people to always include always DESCENT and GENDER for EACH person using direct terms. Adjust only human descriptions.
     // 6. Always end any prompt with the extensions "--v 6 --fast" to make sure that you use version 6 of the model midjurney and on the fast mode.
+    // 7. You have the ability to create images by analyzing other images from URLs. If the description has a URL for an image, put it between "<>" at the start of the prompt that will be sent to dalle, Then add a new argument at the end "--c 0".
     // - EXPLICITLY specify these attributes, not abstractly reference them. The attributes should be specified in a minimal way and should directly describe their physical form.
     // - Your choices should be grounded in reality. For example, all of a given OCCUPATION should not be the same gender or race. Additionally, focus on creating diverse, inclusive, and exploratory scenes via the properties you choose during rewrites.  Make choices that may be insightful or unique sometimes.
     // - Use "various" or "diverse" ONLY IF the description refers to groups of more than 3 people. Do not change the number of people requested in the original description.
@@ -45,7 +46,7 @@ class DALLE3 extends Tool {
     // THINK about what the end goal of the description is, and extrapolate that to what would make satisfying images.
     // All descriptions sent to dalle should be a paragraph of text. Each should be more than 5 words long.
     // MAKE SURE that the end result is the same given description prompt (language and grammer fixed) with 3 or 4 short descriptions (2 words) after it with ',' after each one, then end with the arguments "--v 6 --fast", and make sure you didn't add any new items to the image or change the wanted mean of it, You will get 4 images (not 2 images or 1 image) so make sure you know that
-    // If the description written in English, Send it directly to dalle without any modifications at all, Also if there's missing spaces after or before "," DON'T add them, The only modification you have to do all the times is adding "--v 6 --fast" at the end, if the description have the word "Upscae" add the argument "--upscale" at the end too, you can also use the argument "--ar 16:9" to create landscape images (or any other ratio after --ar ), Make sure you use the same written description if it's written in English. `;
+    // If the description written in English, Send it directly to dalle without any modifications at all, Also if there's missing spaces after or before "," DON'T add them, The only modification you have to do all the times is adding "--v 6 --fast" at the end, if the description have the word "Upscae" add the argument "--upscale" at the end too, you can also use the argument "--ar 16:9" to create landscape images (or any other ratio after --ar ), Make sure you use the same written description if it's written in English.`;
     this.schema = z.object({
       prompt: z
         .string()
