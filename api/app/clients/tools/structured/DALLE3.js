@@ -31,7 +31,7 @@ class DALLE3 extends Tool {
     - Maintains the original intent of the description, with parameters for image style, quality, and size to tailor the output.`;
     this.description_for_model =
       DALLE3_SYSTEM_PROMPT ??
-      `// Whenever a description of an image is given, generate prompt (following these rules), All prompts sent to dalle must abide by the following policies:
+      `// Whenever a description of an image is given, generate prompts (following these rules), and use dalle to create the image. If the user does not ask for a specific number of images, default to creating 2 prompts to send to dalle that are written to be sent not to be mentioned as last result. All prompts sent to dalle must abide by the following policies:
     // 1. Prompts must be in English. Translate to English if needed.
     // 2. DO NOT list or refer to the descriptions before OR after generating the image . They should ONLY ever be written out ONCE, in the \`"prompts"\` field of the request. You do not need to ask for permission to generate, just do it!
     // 4. Always end any prompt with the parameter "--v 6".
