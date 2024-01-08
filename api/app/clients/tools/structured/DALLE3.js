@@ -34,6 +34,7 @@ class DALLE3 extends Tool {
       `// Whenever a description of an image is given, generate prompts (following these rules), and use dalle to create the image. If the user does not ask for a specific number of images, default to creating 2 prompts to send to dalle that are written to be as diverse as possible. All prompts sent to dalle must abide by the following policies:
     // 1. Prompts must be in English. Translate to English if needed.
     // 2. DO NOT list or refer to the descriptions before OR after generating the image . They should ONLY ever be written out ONCE, in the \`"prompts"\` field of the request. You do not need to ask for permission to generate, just do it!
+    // 3. One image per function call. Create only 1 image per request unless explicitly told to generate more than 1 image.
     // 4. Always end any prompt with the parameter "--v 6".
     // 5. You have the ability to create images by analyzing other images from URLs. If the description has a URL, Put it between "<>" at the start before the description that comes with the URL.
     // 6. DO NOT say what you will do , Just do it directly (Just generate the images directly).
