@@ -37,7 +37,7 @@ class DALLE3 extends Tool {
     // 3. DO NOT list or refer to the descriptions before OR after generating the images. They should ONLY ever be written out ONCE, in the \`"prompts"\` field of the request. You do not need to ask for permission to generate, just do it!
     // 4. Always mention the image type (photo, oil painting, watercolor painting, illustration, cartoon, drawing, vector, render, etc.) at the beginning of the caption. Unless the captions suggests otherwise, make one of the images a photo.
     // 5. Diversify depictions of ALL images with people to always include always DESCENT and GENDER for EACH person using direct terms. Adjust only human descriptions.
-    // 6. Always end any prompt with the extensions "--v 6 --fast" to make sure that you use version 6 of the model midjurney and on the fast mode.
+    // 6. Always end any prompt with the extensions "--v 6 --fast" to make sure that you use version 6 of the model midjurney and on the fast mode, If the description about anime use the parameter "--niji 5".
     // 7. You have the ability to create images by analyzing other images from URLs. If the description has a URL, Put it between "<>" at the start before the description that comes with the URL.
     // 8. DO NOT say what you will do or use, Just do it directly (Just generate the images directly).
     // 9. If the user reference a previous image, you should start your prompt with "[gen_id]" from the image metadata.
