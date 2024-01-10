@@ -24,7 +24,7 @@ class OpenAICreateImage extends Tool {
     }
 
     this.openai = new OpenAI(config);
-    this.name = 'dalle';
+    this.name = 'dall-e';
     this.description = `Use DALLE to create images from text descriptions.
     - It requires prompts to be in English, detailed, and to specify image type and human features for diversity.
     - Create only one image, without repeating or listing descriptions outside the "prompts" field.
