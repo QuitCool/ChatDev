@@ -94,7 +94,7 @@ class OpenAICreateImage extends Tool {
         resp = await this.openai.images.generate({
           model,
           prompt: this.replaceUnwantedChars(prompt),
-          n: 1,
+          n: 4,
         });
         break; // If the image generation is successful, break out of the loop
       } catch (error) {
