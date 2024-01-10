@@ -6,8 +6,8 @@ const { z } = require('zod');
 const OpenAI = require('openai');
 const { Tool } = require('langchain/tools');
 const { HttpsProxyAgent } = require('https-proxy-agent');
-const saveImageFromUrl = require('../saveImageFromUrl');
-const extractBaseURL = require('../../../../utils/extractBaseURL');
+const saveImageFromUrl = require('./saveImageFromUrl');
+const extractBaseURL = require('../../../utils/extractBaseURL');
 const { DALLE3_SYSTEM_PROMPT, DALLE_REVERSE_PROXY, PROXY } = process.env;
 class OpenAICreateImage extends Tool {
   constructor(fields = {}) {
@@ -137,12 +137,11 @@ Error Message: ${error.message}`;
       '..',
       '..',
       '..',
-      '..',
       'client',
       'public',
       'images',
     );
-    const appRoot = path.resolve(__dirname, '..', '..', '..', '..', '..', 'client');
+    const appRoot = path.resolve(__dirname, '..', '..', '..', '..', 'client');
     this.relativeImageUrl = path.relative(appRoot, this.outputPath);
 
     // Check if directory exists, if not create it
