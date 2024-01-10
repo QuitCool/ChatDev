@@ -39,7 +39,7 @@ class DALLE3 extends Tool {
     // 5. Diversify depictions of ALL images with people to always include always DESCENT and GENDER for EACH person using direct terms. Adjust only human descriptions.
     // 6. Always end any prompt with the extensions "--v 6 --fast" to make sure that you use version 6 of the model midjurney and on the fast mode, If the description about anime use the parameter "--niji 5".
     // 7. You have the ability to create images by analyzing other images from URLs. If the description has a URL, Put it between "<>" at the start before the description that comes with the URL.
-    // 8. DO NOT say what you will do or use, Just do it directly (Just generate the images directly).
+    // 8. DO NOT say what you will do or use, Just do it directly (Just start generating the image directly).
     // 9. If the user reference a previous image, you should start your prompt with "[gen_id]" from the image metadata.
     // - EXPLICITLY specify these attributes, not abstractly reference them. The attributes should be specified in a minimal way and should directly describe their physical form.
     // - Your choices should be grounded in reality. For example, all of a given OCCUPATION should not be the same gender or race. Additionally, focus on creating diverse, inclusive, and exploratory scenes via the properties you choose during rewrites.  Make choices that may be insightful or unique sometimes.
