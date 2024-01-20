@@ -67,7 +67,7 @@ const errorMessages = {
       </>
     );
   },
-
+}
 const Error = ({ text }: { text: string }) => {
   const jsonString = extractJson(text);
   const errorMessage = text.length > 512 && !jsonString ? text.slice(0, 512) + '...' : text;
