@@ -52,7 +52,9 @@ const errorMessages = {
   },
   token_balance: (json: TTokenBalance) => {
     const { balance, tokenCost, promptTokens, generations } = json;
-    const message =`  رصيدك   (${balance}).  ليس لديك رصيد مجاني كافي,  يمكنك الاشتراك في كل الخدمات بمبلغ 10 دولار او 400 جنيه (اسال عن عرض الشهر 350) فقط شهرياً. لطلب رصيد تجريبي او للاشتراك الرجاء التواصل عبر صفحه الفيسبوك بالضغط علي الاسم بالأسفل .`;
+    const url = "http://your-subscription-link.com"; // Change to your actual URL
+    const message = `To Subscribe <a href="${url}" target="_blank">click here</a> or contact us`;
+  
     return (
       <>
         {message}
@@ -65,7 +67,6 @@ const errorMessages = {
       </>
     );
   },
-};
 
 const Error = ({ text }: { text: string }) => {
   const jsonString = extractJson(text);
