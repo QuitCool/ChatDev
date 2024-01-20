@@ -52,19 +52,17 @@ const errorMessages = {
   },
   token_balance: (json: TTokenBalance) => {
     const { balance, tokenCost, promptTokens, generations } = json;
-    const url = "https://www.facebook.com/profile.php?id=61552521565850"; // Change to your actual URL
-    const message = `لتجربة الموقع مجاناً <a href="${url}" target="_blank">اضغط هنا</a> or contact us`;
-  
+    const url = "https://www.facebook.com/profile.php?id=61552521565850";
     return (
-      <>
-        {message}
-        {generations && (
+      <> {/* Notice that this is the JSX fragment starting */}
+        لتجربة الموقع مجاناً ارسل ايميلك <a href={url} target="_blank">هنا</a>
+        {generations && generations.map(generation => (
           <>
             <br />
-            <br />
+            <CodeBlock>{formatJSON(generation)}</CodeBlock> {/* Adding any missing handling for generations */}
           </>
-        )}
-      </>
+        ))}
+      </> {/* Notice that this is the JSX fragment ending */}
     );
   },
 }
