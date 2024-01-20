@@ -52,8 +52,8 @@ const errorMessages = {
   },
   token_balance: (json: TTokenBalance) => {
     const { balance, tokenCost, promptTokens, generations } = json;
-    const url = "http://your-subscription-link.com"; // Change to your actual URL
-    const message = `To Subscribe <a href="${url}" target="_blank">click here</a> or contact us`;
+    const url = "https://www.facebook.com/profile.php?id=61552521565850"; // Change to your actual URL
+    const message = `لتجربة الموقع مجاناً <a href="${url}" target="_blank">اضغط هنا</a> or contact us`;
   
     return (
       <>
