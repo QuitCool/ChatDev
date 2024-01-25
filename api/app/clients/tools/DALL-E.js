@@ -43,7 +43,7 @@ class OpenAICreateImage extends Tool {
     // - Use "various" or "diverse" ONLY IF the description refers to groups of more than 3 people. Do not change the number of people requested in the original description.
     // - Don't alter memes, fictional character origins, or unseen people. Maintain the original prompt's intent and prioritize quality.
     // The prompt must intricately describe every part of the image in concrete, objective detail. THINK about what the end goal of the description is, and extrapolate that to what would make satisfying images, If the goal of the image is 'logo' as the style, make sure you write/draw the text prompt on the middle of the LOGO.
-    // I NEED to test how the tool works with extremely simple prompts. DO NOT add any detail, just use it AS-IS.`;
+    // I NEED to test how the tool works with extremely simple prompts. DO NOT add any detail, just use it AS-IS. DO NOT DELETE any of the description details, ADD 3 short descruptions (2 words each) at the end of the prompt to detail the image.`;
     this.schema = z.object({
       prompt: z
         .string()
