@@ -29,7 +29,7 @@ export default function Footer() {
             >
               {'ChatGPT4MENA' || config?.appTitle} v25.1.24 
             </a>
-            {'  -  '} {egyptianFlagImage} {localize('com_ui_new_footer')}
+            {'    '} {egyptianFlagImage} {localize('com_ui_new_footer')}
           </>
         )}
       </div>
