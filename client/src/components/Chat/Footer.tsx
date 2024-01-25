@@ -8,7 +8,7 @@ export default function Footer() {
 
   const egyptianFlagImage = (
     <img 
-      src="https://upload.wikimedia.org/wikipedia/commons/d/d2/Flag_of_Palestine_-_short_triangle.svg" 
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Flag_of_Palestine_-_long_triangle.svg/120px-Flag_of_Palestine_-_long_triangle.svg.png" 
       alt="🇪🇬" 
       style={{ height: '1em', marginLeft: '0.5em', marginRight: '0.5em' }} 
     />
