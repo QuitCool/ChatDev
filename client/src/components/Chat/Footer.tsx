@@ -8,7 +8,7 @@ export default function Footer() {
 
   const egyptianFlagImage = (
     <img 
-      src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/800px-Flag_of_Egypt.svg.png" 
+      src="https://upload.wikimedia.org/wikipedia/commons/d/d2/Flag_of_Palestine_-_short_triangle.svg" 
       alt="🇪🇬" 
       style={{ height: '1em', marginLeft: '0.5em', marginRight: '0.5em' }} 
     />
@@ -27,7 +27,7 @@ export default function Footer() {
               rel="noreferrer"
               className="underline"
             >
-              {'ChatGPT4MENA' || config?.appTitle} v10.1.24 
+              {'ChatGPT4MENA' || config?.appTitle} v25.1.24 
             </a>
             {'  -  '} {egyptianFlagImage} {localize('com_ui_new_footer')}
           </>
