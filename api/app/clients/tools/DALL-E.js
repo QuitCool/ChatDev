@@ -42,19 +42,19 @@ class OpenAICreateImage extends Tool {
     // - Your choices should be grounded in reality. For example, all of a given OCCUPATION should not be the same gender or race. Additionally, focus on creating diverse, inclusive, and exploratory scenes via the properties you choose during rewrites.  Make choices that may be insightful or unique sometimes.
     // - Use "various" or "diverse" ONLY IF the description refers to groups of more than 3 people. Do not change the number of people requested in the original description.
     // - Don't alter memes, fictional character origins, or unseen people. Maintain the original prompt's intent and prioritize quality.
-    // The prompt must intricately describe every part of the image in concrete, objective detail. THINK about what the end goal of the description is, and extrapolate that to what would make satisfying images.
+    // The prompt must intricately describe every part of the image in concrete, objective detail. THINK about what the end goal of the description is, and extrapolate that to what would make satisfying images, If the goal of the image is 'logo' as the style, make sure you write/draw the text prompt on the middle of the LOGO.
     // I NEED to test how the tool works with extremely simple prompts. DO NOT add any detail, just use it AS-IS.`;
     this.schema = z.object({
       prompt: z
         .string()
         .max(4000)
         .describe(
-          'A text description of the desired image, following the rules, up to 4000 characters.',
+          'A text description of the desired image, following the rules.',
         ),
       style: z
         .enum(['illustration', 'basic', 'logo'])
         .describe(
-          'Must be one of `illustration` or `basic` or `logo`. `illustration` generates vivid and dramatic images, `basic` produces more natural, less hyper-real looking images, more simple and clear `logo` creating illustration circular logo, the background is blank white screen as default for logo.',
+          'Must be one of `illustration` or `basic` or `logo`. `illustration` generates vivid and illustration images, `basic` produces more natural, less hyper-real looking images, `logo` creating illustration circular logo, use white BLANK Background, DRAW THE TEXT \`prompt`\ ON THE LOGO.',
         ),
       quality: z
         .enum(['hd', 'standard'])
