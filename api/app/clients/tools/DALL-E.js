@@ -51,18 +51,13 @@ class OpenAICreateImage extends Tool {
         .describe(
           'A text description of the desired image, following the rules.',
         ),
-      style: z
-        .enum(['illustration', 'basic', 'logo'])
-        .describe(
-          'Must be one of `illustration` or `basic` or `logo`. `illustration` generates vivid and illustration images, `basic` produces more natural, less hyper-real looking images, `logo` creating illustration circular logo, use white BLANK Background, DRAW THE TEXT \`prompt`\ ON THE LOGO.',
-        ),
       quality: z
         .enum(['hd', 'standard'])
         .describe('The quality of the generated image. Only `hd` and `standard` are supported.'),
       size: z
       .enum(['1024x1024', '1792x1024', '1024x1792'])
       .describe(
-        'The size of the requested image. Use 1024x1024 (square) as the default, 1792x1024 if the user requests a wide image, and 1024x1792 for full-body portraits. Always include this parameter in the request.',
+        'The size of the requested image. Use 1024x1024 (square) as the default, 1792x1024 if the user requests a wide or landscape image, and 1024x1792 for full-body portraits. Always include this parameter in the request.',
       ),
     });
   }
@@ -91,7 +86,7 @@ class OpenAICreateImage extends Tool {
   }
 
   async _call(data) {
-    const { prompt, quality = 'standard', size = '1024x1024', style = 'illustration' } = data;
+    const { prompt, quality = 'standard', size = '1024x1024' } = data;
     if (!prompt) {
       throw new Error('Missing required field: prompt');
     }
@@ -103,9 +98,8 @@ class OpenAICreateImage extends Tool {
         resp = await this.openai.images.generate({
           model,
           quality,
-          style,
           size,
-          prompt: this.replaceUnwantedChars(prompt),
+          prompt: this.replaceUnwantedChars(prompt), style,
           n: 1,
         });
         break; // If the image generation is successful, break out of the loop
