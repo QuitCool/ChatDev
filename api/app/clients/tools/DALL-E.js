@@ -51,9 +51,6 @@ class OpenAICreateImage extends Tool {
         .describe(
           'A text description of the desired image, following the rules.',
         ),
-      quality: z
-        .enum(['hd', 'standard'])
-        .describe('The quality of the generated image. Only `hd` and `standard` are supported.'),
       size: z
       .enum(['1024x1024', '1792x1024', '1024x1792'])
       .describe(
@@ -86,7 +83,7 @@ class OpenAICreateImage extends Tool {
   }
 
   async _call(data) {
-    const { prompt, quality = 'standard', size = '1024x1024' } = data;
+    const { prompt, size = '1024x1024' } = data;
     if (!prompt) {
       throw new Error('Missing required field: prompt');
     }
@@ -97,10 +94,9 @@ class OpenAICreateImage extends Tool {
       try {
         resp = await this.openai.images.generate({
           model,
-          quality,
-          size,
-          prompt: this.replaceUnwantedChars(prompt), style,
+          prompt: this.replaceUnwantedChars(prompt),
           n: 1,
+          size,
         });
         break; // If the image generation is successful, break out of the loop
       } catch (error) {
