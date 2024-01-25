@@ -15,6 +15,12 @@ export default function Textarea({ value, onChange, setText, submitMessage, endp
     placeholder,
   } = useTextarea({ setText, submitMessage });
 
+  const handleFocus = (e) => {
+    const target = e.target;
+    target.style.height = 'inherit'; // Resets the height to default
+    target.style.height = `${target.scrollHeight}px`; // Sets the correct scrollHeight
+  };
+
   return (
     <TextareaAutosize
       ref={inputRef}
@@ -27,10 +33,11 @@ export default function Textarea({ value, onChange, setText, submitMessage, endp
       onCompositionStart={handleCompositionStart}
       onCompositionEnd={handleCompositionEnd}
       onHeightChange={onHeightChange}
+      onFocus={handleFocus} // Added the onFocus handler here
       id="prompt-textarea"
       tabIndex={0}
       data-testid="text-input"
-      style={{ height: 44, overflowY: 'auto' }}
+      style={{ overflowY: 'auto' }} // Removed fixed height and allow control via CSS or JS
       rows={1}
       placeholder={placeholder}
       className={cn(
