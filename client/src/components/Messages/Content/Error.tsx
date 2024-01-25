@@ -63,7 +63,7 @@ const errorMessages = {
           rel="noreferrer noopener" // It's better to include 'noopener' for security reasons.
           className="underline"
         >
-          .اضغط هنا
+          اضغط هنا
         </a>
         {json.generations && (
           <>
