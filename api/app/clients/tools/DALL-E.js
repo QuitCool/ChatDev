@@ -27,6 +27,7 @@ class OpenAICreateImage extends Tool {
     this.name = 'dall-e';
     this.description = `Use DALLE to create images from text descriptions.
     - It requires prompts to be in English, detailed, and to specify image type and human features for diversity.
+    - I NEED to test how the tool works with extremely simple prompts. DO NOT add any detail, just use it AS-IS.
     - Create only one image, without repeating or listing descriptions outside the "prompts" field.
     - Maintains the original intent of the description, with parameters for image style, quality, and size to tailor the output.`;
     this.description_for_model =
@@ -37,31 +38,39 @@ class OpenAICreateImage extends Tool {
     // 3. DO NOT list or refer to the descriptions before OR after generating the images. They should ONLY ever be written out ONCE, in the \`"prompts"\` field of the request. You do not need to ask for permission to generate, just do it!
     // 4. Always mention the image type (photo, oil painting, watercolor painting, illustration, cartoon, drawing, vector, render, etc.) at the beginning of the caption. Unless the captions suggests otherwise, make one of the images a photo.
     // 5. Diversify depictions of ALL images with people to always include always DESCENT and GENDER for EACH person using direct terms. Adjust only human descriptions.
-    // 6. Always end any prompt with the extensions ",8K." to make sure that you use version 6 of the model midjurney and on the fast mode, If the description about anime use the parameter "--niji 5".
-    // 7. You have the ability to create images by analyzing other images from URLs. If the description has a URL, Put it between "<>" at the start before the description that comes with the URL.
-    // 8. DO NOT say what you will do or use, Just do it directly (Just start generating the image directly).
-    // 9. If the user reference a previous image, you should start your prompt with "[gen_id]" from the image metadata.
     // - EXPLICITLY specify these attributes, not abstractly reference them. The attributes should be specified in a minimal way and should directly describe their physical form.
     // - Your choices should be grounded in reality. For example, all of a given OCCUPATION should not be the same gender or race. Additionally, focus on creating diverse, inclusive, and exploratory scenes via the properties you choose during rewrites.  Make choices that may be insightful or unique sometimes.
     // - Use "various" or "diverse" ONLY IF the description refers to groups of more than 3 people. Do not change the number of people requested in the original description.
     // - Don't alter memes, fictional character origins, or unseen people. Maintain the original prompt's intent and prioritize quality.
-    // THINK about what the end goal of the description is, and extrapolate that to what would make satisfying images.
-    // All descriptions sent to dalle should be a paragraph of text. Each should be more than 5 words long.
-    // MAKE SURE that the end result is the same given description prompt (language and grammer fixed) with 3 or 4 short descriptions (2 words) after it with ',' after each one, then end with the arguments ",8K.", and make sure you didn't add any new items to the image or change the wanted mean of it, You will get 4 images (not 2 images or 1 image) so make sure you know that`;
+    // The prompt must intricately describe every part of the image in concrete, objective detail. THINK about what the end goal of the description is, and extrapolate that to what would make satisfying images.
+    // I NEED to test how the tool works with extremely simple prompts. DO NOT add any detail, just use it AS-IS.`;
     this.schema = z.object({
       prompt: z
         .string()
         .max(4000)
         .describe(
-          'A given description of the desired image, add short enhance descriptions after it, make sure you end the prompt with ",8K.".',
+          'A text description of the desired image, following the rules, up to 4000 characters.',
         ),
+      style: z
+        .enum(['illustration', 'basic', 'logo'])
+        .describe(
+          'Must be one of `illustration` or `basic` or `logo`. `illustration` generates vivid and dramatic images, `basic` produces more natural, less hyper-real looking images, more simple and clear `logo` creating illustration circular logo, the background is blank white screen as default for logo.',
+        ),
+      quality: z
+        .enum(['hd', 'standard'])
+        .describe('The quality of the generated image. Only `hd` as the default and `standard` are supported.'),
+      size: z
+      .enum(['1024x1024', '1792x1024', '1024x1792'])
+      .describe(
+        'The size of the requested image. Use 1024x1024 (square) as the default, 1792x1024 if the user requests a wide image, and 1024x1792 for full-body portraits. Always include this parameter in the request.',
+      ),
     });
   }
 
   getApiKey() {
     const apiKey = process.env.DALLE_API_KEY || '';
     if (!apiKey) {
-      throw new Error('Missing MIDJ_API_KEY environment variable.');
+      throw new Error('Missing DALLE_API_KEY environment variable.');
     }
     return apiKey;
   }
@@ -82,7 +91,7 @@ class OpenAICreateImage extends Tool {
   }
 
   async _call(data) {
-    const { prompt } = data;
+    const { prompt, quality = 'hd', size = '1024x1024', style = 'illustration' } = data;
     if (!prompt) {
       throw new Error('Missing required field: prompt');
     }
@@ -93,6 +102,9 @@ class OpenAICreateImage extends Tool {
       try {
         resp = await this.openai.images.generate({
           model,
+          quality,
+          style,
+          size,
           prompt: this.replaceUnwantedChars(prompt),
           n: 1,
         });
@@ -112,24 +124,22 @@ Error Message: ${error.message}`;
       return 'Something went wrong when trying to generate the image. The API may unavailable';
     }
 
-    const imageUrls = resp.data.map(image => image.url);
+    const theImageUrl = resp.data[0].url;
 
-    if (!imageUrls.length) {
+    if (!theImageUrl) {
       return 'No image URL returned from OpenAI API. There may be a problem with the API or your configuration.';
     }
 
-    const regex = /[\w\d]+\.png/;
-    let imageNames = [];
+    const regex = /[\w\d]+.png/;
+    const match = theImageUrl.match(regex);
+    let imageName = '1.png';
 
-    imageUrls.forEach((imageUrl, index) => {
-      const match = imageUrl.match(regex);
-      if (match) {
-        imageNames.push(match[0]);
-        console.log(`Image ${index + 1} name:`, match[0]);
-      } else {
-        console.log(`No image name found in the string for image ${index + 1}.`);
-      }
-    });
+    if (match) {
+      imageName = match[0];
+      console.log(imageName); // Output: img-lgCf7ppcbhqQrz6a5ear6FOb.png
+    } else {
+      console.log('No image name found in the string.');
+    }
 
     this.outputPath = path.resolve(
       __dirname,
@@ -149,18 +159,15 @@ Error Message: ${error.message}`;
       fs.mkdirSync(this.outputPath, { recursive: true });
     }
 
-    let markdownImageUrls = [];
-    for (let i = 0; i < imageUrls.length; i++) {
-      try {
-        await saveImageFromUrl(imageUrls[i], this.outputPath, imageNames[i]);
-        markdownImageUrls.push(this.getMarkdownImageUrl(imageNames[i]));
-      } catch (error) {
-        console.error(`Error while saving image ${i + 1}:`, error);
-        markdownImageUrls.push(imageUrls[i]);
-      }
+    try {
+      await saveImageFromUrl(theImageUrl, this.outputPath, imageName);
+      this.result = this.getMarkdownImageUrl(imageName);
+    } catch (error) {
+      console.error('Error while saving the image:', error);
+      this.result = theImageUrl;
     }
 
-    return markdownImageUrls.join('\n');
+    return this.result;
   }
 }
 

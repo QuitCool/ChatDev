@@ -52,20 +52,21 @@ const errorMessages = {
   },
   token_balance: (json: TTokenBalance) => {
     const { balance, tokenCost, promptTokens, generations } = json;
-    const url = "https://www.facebook.com/profile.php?id=61552521565850";
+    const message =`  رصيدك   (${balance}).  ليس لديك رصيد مجاني كافي,  يمكنك الاشتراك في كل الخدمات بمبلغ 10 دولار او 400 جنيه (اسال عن عرض الشهر 350) فقط شهرياً. لطلب رصيد تجريبي او للاشتراك الرجاء التواصل عبر صفحه الفيسبوك بالضغط علي الاسم بالأسفل .`;
     return (
-      <> {/* Notice that this is the JSX fragment starting */}
-        لتجربة الموقع مجاناً ارسل ايميلك <a href={url} target="_blank">هنا</a>
-        {generations && generations.map(generation => (
+      <>
+        {message}
+        {generations && (
           <>
             <br />
-            <CodeBlock>{formatJSON(generation)}</CodeBlock> {/* Adding any missing handling for generations */}
+            <br />
           </>
-        ))}
-      </> {/* Notice that this is the JSX fragment ending */}
+        )}
+      </>
     );
   },
 };
+
 const Error = ({ text }: { text: string }) => {
   const jsonString = extractJson(text);
   const errorMessage = text.length > 512 && !jsonString ? text.slice(0, 512) + '...' : text;
