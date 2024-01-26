@@ -47,7 +47,8 @@ class DALLE3 extends Tool {
     // - Don't alter memes, fictional character origins, or unseen people. Maintain the original prompt's intent and prioritize quality.
     // THINK about what the end goal of the description is, and extrapolate that to what would make satisfying images.
     // All descriptions sent to dalle should be a paragraph of text. Each should be more than 5 words long.
-    // MAKE SURE that the end result is the same given description prompt (language and grammer fixed) with 3 or 4 short descriptions (2 words) after it with ',' after each one, then end with the arguments "--v 6 --fast", and make sure you didn't add any new items to the image or change the wanted mean of it, You will get 4 images (not 2 images or 1 image) so make sure you know that`;
+    // MAKE SURE that the end result is the same given description prompt (language and grammer fixed) with 3 or 4 short descriptions (2 words) after it with ',' after each one, then end with the arguments "--v 6 --fast", and make sure you didn't add any new items to the image or change the wanted mean of it, You will get 4 images (not 2 images or 1 image) so make sure you know that
+    // I NEED to test how the tool works with extremely simple prompts. DO NOT add any detail, just use it AS-IS (with --v 6).`;
     this.schema = z.object({
       prompt: z
         .string()
