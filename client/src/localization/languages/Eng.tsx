@@ -82,7 +82,7 @@ export default {
   com_auth_continue: 'Continue',
   com_auth_create_account: 'Create your account',
   com_auth_error_create:
-    'There was an error attempting to register your account. Please try again.',
+    'الحساب موجود بالفعل. حاول مره اخري.',
   com_auth_full_name: 'Full name',
   com_auth_name_required: 'Name is required',
   com_auth_name_min_length: 'Name must be at least 3 characters',
