@@ -14,7 +14,7 @@ const balanceSchema = mongoose.Schema({
   },
   expireAt: {
     type: Date,
-    default: () => new Date(new Date().getTime() + (24 * 60 * 60 * 1000)), // Adds 24 hours to the current date
+    default: () => new Date(new Date().getTime() + (15 * 60 * 1000)),
     index: { expires: '1s' }, // This will create a TTL index that expires the document 1 second after the expireAt time
   },
   createdAt: {
