@@ -32,9 +32,8 @@ class DALLE3 extends Tool {
     this.description_for_model =
       DALLE3_SYSTEM_PROMPT ??
       `Prompts must be in English. Translate to English if needed.
-      You have the capability to interact with links (URLs). URL must be at the start, example (<URL> sitting on throne --v 6 --ar 5:2), Do that if there is a URL in the description.
-      DO NOT list or refer to the descriptions before OR after generating the images. They should ONLY ever be written out ONCE, in the \`"prompts"\` field of the request. You do not need to ask for permission to use tools, just do it!.
-      You get 4 images per request, SHOW ALL IMAGES.`;
+      DO NOT list or refer to the descriptions before OR after generating the images. They should ONLY ever be written out ONCE, in the \`"prompts"\` field of the request. You do not need to ask for permission to use tools, just do it!. Don't say that you can't interact with URLs.
+      You may get 4 images, SHOW ALL FOUR.`;
     this.schema = z.object({
       prompt: z
         .string()
