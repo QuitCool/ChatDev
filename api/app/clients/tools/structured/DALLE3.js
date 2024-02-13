@@ -8,15 +8,15 @@ const { Tool } = require('langchain/tools');
 const { HttpsProxyAgent } = require('https-proxy-agent');
 const saveImageFromUrl = require('../saveImageFromUrl');
 const extractBaseURL = require('../../../../utils/extractBaseURL');
-const { DALLE3_SYSTEM_PROMPT, DALLE_REVERSE_PROXY, PROXY } = process.env;
+const { DALLE3_SYSTEM_PROMPT, MIDJ_REVERSE_PROXY, PROXY } = process.env;
 class DALLE3 extends Tool {
   constructor(fields = {}) {
     super();
 
-    let apiKey = fields.DALLE_API_KEY || this.getApiKey();
+    let apiKey = fields.MIDJ_API_KEY || this.getApiKey();
     const config = { apiKey };
-    if (DALLE_REVERSE_PROXY) {
-      config.baseURL = extractBaseURL(DALLE_REVERSE_PROXY);
+    if (MIDJ_REVERSE_PROXY) {
+      config.baseURL = extractBaseURL(MIDJ_REVERSE_PROXY);
     }
 
     if (PROXY) {
@@ -46,7 +46,7 @@ class DALLE3 extends Tool {
   }
 
   getApiKey() {
-    const apiKey = process.env.DALLE_API_KEY || '';
+    const apiKey = process.env.MIDJ_API_KEY || '';
     if (!apiKey) {
       throw new Error('Missing MIDJ_API_KEY environment variable.');
     }
