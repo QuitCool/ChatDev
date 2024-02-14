@@ -49,7 +49,7 @@ class OpenAICreateImage extends Tool {
         .string()
         .max(4000)
         .describe(
-          'A text description of the desired image, following the rules.',
+          'A text description of the desired 4 images, following the rules.',
         ),
       size: z
       .enum(['1024x1024', '1792x1024', '1024x1792'])
@@ -83,20 +83,20 @@ class OpenAICreateImage extends Tool {
   }
 
   async _call(data) {
-    const { prompt, size = '1024x1024' } = data;
+    const { prompt, size = '1024x1024'  } = data;
     if (!prompt) {
       throw new Error('Missing required field: prompt');
     }
 
     let resp;
-    const models = ['dall-e-3', 'kandinsky-3'];
+    const models = ['dall-e-3'];
     for (const model of models) {
       try {
         resp = await this.openai.images.generate({
           model,
-          prompt: this.replaceUnwantedChars(prompt),
-          n: 1,
           size,
+          prompt: this.replaceUnwantedChars(prompt),
+          n: 2,
         });
         break; // If the image generation is successful, break out of the loop
       } catch (error) {
@@ -114,22 +114,24 @@ Error Message: ${error.message}`;
       return 'Something went wrong when trying to generate the image. The API may unavailable';
     }
 
-    const theImageUrl = resp.data[0].url;
+    const imageUrls = resp.data.map(image => image.url);
 
-    if (!theImageUrl) {
+    if (!imageUrls.length) {
       return 'No image URL returned from OpenAI API. There may be a problem with the API or your configuration.';
     }
 
-    const regex = /[\w\d]+.png/;
-    const match = theImageUrl.match(regex);
-    let imageName = '1.png';
+    const regex = /[\w\d]+\.png/;
+    let imageNames = [];
 
-    if (match) {
-      imageName = match[0];
-      console.log(imageName); // Output: img-lgCf7ppcbhqQrz6a5ear6FOb.png
-    } else {
-      console.log('No image name found in the string.');
-    }
+    imageUrls.forEach((imageUrl, index) => {
+      const match = imageUrl.match(regex);
+      if (match) {
+        imageNames.push(match[0]);
+        console.log(`Image ${index + 1} name:`, match[0]);
+      } else {
+        console.log(`No image name found in the string for image ${index + 1}.`);
+      }
+    });
 
     this.outputPath = path.resolve(
       __dirname,
@@ -149,15 +151,18 @@ Error Message: ${error.message}`;
       fs.mkdirSync(this.outputPath, { recursive: true });
     }
 
-    try {
-      await saveImageFromUrl(theImageUrl, this.outputPath, imageName);
-      this.result = this.getMarkdownImageUrl(imageName);
-    } catch (error) {
-      console.error('Error while saving the image:', error);
-      this.result = theImageUrl;
+    let markdownImageUrls = [];
+    for (let i = 0; i < imageUrls.length; i++) {
+      try {
+        await saveImageFromUrl(imageUrls[i], this.outputPath, imageNames[i]);
+        markdownImageUrls.push(this.getMarkdownImageUrl(imageNames[i]));
+      } catch (error) {
+        console.error(`Error while saving image ${i + 1}:`, error);
+        markdownImageUrls.push(imageUrls[i]);
+      }
     }
 
-    return this.result;
+    return markdownImageUrls.join('\n');
   }
 }
 

@@ -14,6 +14,24 @@ import NavLink from './NavLink';
 import Logout from './Logout';
 import { cn } from '~/utils/';
 import store from '~/store';
+import { useProcessPayment } from './PaymentGateway'; // replace with the actual path to PaymentGateway
+
+const processPayment = () => {
+  const { processPayment } = useProcessPayment();
+
+  const handleClick = async () => {
+    try {
+      const redirectUrl = await processPayment();
+      window.location.href = redirectUrl; // Redirect the user to the payment page
+    } catch (error) {
+      console.error(error); // Log any errors
+    }
+  };
+
+  return (
+    <button onClick={handleClick}>Pay Now</button>
+  );
+};
 
 function NavLinks() {
   const localize = useLocalize();
@@ -113,7 +131,7 @@ function NavLinks() {
                     className="flex w-full cursor-pointer items-center gap-3 rounded-none px-3 py-3 text-sm text-white transition-colors duration-200 hover:bg-gray-700"
                     svg={() => <LinkIcon />}
                     text={localize('com_nav_help_faq')}
-                    clickHandler={() => window.open('https://discord.com/invite/2Hrmysvpgf/', '_blank')}
+                    clickHandler={handleClick} // Use handleClick here
                   />
                 </Menu.Item>
                 <Menu.Item as="div">
