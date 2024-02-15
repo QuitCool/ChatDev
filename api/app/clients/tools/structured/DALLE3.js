@@ -31,16 +31,17 @@ class DALLE3 extends Tool {
     - Maintains the original intent of the description, with parameters for image style, quality, and size to tailor the output.`;
     this.description_for_model =
       DALLE3_SYSTEM_PROMPT ??
-      `Prompts must be in English. Translate to English if needed.
-      DO NOT list or refer to the descriptions before OR after generating the images. They should ONLY ever be written out ONCE, in the \`"prompts"\` field of the request. You do not need to ask for permission to use tools, just do it!. Don't say that you can't interact with URLs.
-      You may get 4 images, SHOW ALL FOUR.
-      You have the capability to interact with URLs by sending them through your request to dalle at the first, example: (<URL>).`;
+     `// Prompts must be in English. Translate to English if needed.
+      // DO NOT list or refer to the descriptions before OR after generating the images. They should ONLY ever be written out ONCE, in the \`"prompts"\` field of the request. You do not need to ask for permission to use tools, just do it!. Don't say that you can't interact with URLs.
+      // You may get 4 images, SHOW ALL FOUR.
+      // You have the capability to interact with URLs by sending them through your request to dalle at the first, example: <URL> description --ar num:num --v 6 .
+      // I'll give you a few shot example of the desired prompt shape '<URL HERE IF PROVIDED> THE SAME USER DESCRIPTION --ar num:num `;
     this.schema = z.object({
       prompt: z
         .string()
         .max(4000)
         .describe(
-          'A given description of the desired image, add the description parameters (--example value) after it, make sure you end the prompt with "--v 6".',
+          'A given description of the desired image, add the parameters (--ar num:num) after it, make sure you end the prompt with "--v 6".',
         ),
     });
   }
@@ -75,7 +76,7 @@ class DALLE3 extends Tool {
     }
 
     let resp;
-    const models = ['midjourney', 'dall-e-3', 'kandinsky-3'];
+    const models = ['midjourney', 'kandinsky-3'];
     for (const model of models) {
       try {
         resp = await this.openai.images.generate({
