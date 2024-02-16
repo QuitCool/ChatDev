@@ -83,7 +83,7 @@ export default function PluginsByIndex({
   }
 
   const modelDisplayNames = {
-    'gpt-4-turbo-preview': 'GPT 4 (Turbo)',
+    'gpt-4-turbo-preview': 'GPT 4 Turbo',
     'gpt-4-1106-preview': 'GPT 4',
     'gpt-4-0613': 'GPT 4 (06/13)',
     'gpt-4-vision-preview': 'GPT 4 (Vision)',
