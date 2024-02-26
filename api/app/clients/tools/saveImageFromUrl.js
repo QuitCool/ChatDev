@@ -2,7 +2,7 @@ const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 
-async function saveImageFromUrl(url, outputPath, outputFilename, extension) {
+async function saveImageFromUrl(url, outputPath, outputFilename) {
   try {
     // Fetch the image from the URL
     const response = await axios({
@@ -15,13 +15,14 @@ async function saveImageFromUrl(url, outputPath, outputFilename, extension) {
       fs.mkdirSync(outputPath, { recursive: true });
     }
 
-    // Ensure the output filename has the correct extension
-    const filenameWithExt = outputFilename.endsWith(`.${extension}`)
+    // Ensure the output filename has a '.png' extension
+    const filenameWithPngExt = outputFilename.endsWith('.png') || outputFilename.endsWith('.jpg')
       ? outputFilename
-      : `${outputFilename}.${extension}`;
+      : `${outputFilename}.jpg`;
+
 
     // Create a writable stream for the output path
-    const outputFilePath = path.join(outputPath, filenameWithExt);
+    const outputFilePath = path.join(outputPath, filenameWithPngExt);
     const writer = fs.createWriteStream(outputFilePath);
 
     // Pipe the response data to the output file
