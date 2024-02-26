@@ -120,7 +120,7 @@ Error Message: ${error.message}`;
       return 'No image URL returned from OpenAI API. There may be a problem with the API or your configuration.';
     }
 
-    const regex = /[\w\d]+.png/;
+    const regex = /[\w\d]+.jpg/;
     const match = theImageUrl.match(regex);
     let imageName = '1.png';
 
