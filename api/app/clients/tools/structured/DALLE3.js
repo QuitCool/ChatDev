@@ -31,7 +31,7 @@ class DALLE3 extends Tool {
     - Maintains the original intent of the description, with parameters for image style, quality, and size to tailor the output.`;
     this.description_for_model =
       DALLE3_SYSTEM_PROMPT ??
-     `// Prompts must be in English. Translate to English if needed.
+      `// Prompts must be in English. Translate to English if needed.
       // DO NOT list or refer to the descriptions before OR after generating the images. They should ONLY ever be written out ONCE, in the \`"prompts"\` field of the request. You do not need to ask for permission to use tools, just do it!. Don't say that you can't interact with URLs.
       // You may get 4 images, SHOW ALL FOUR.
       // You have the capability to interact with URLs by sending them through your request to dalle at the first, example: <URL> description --ar num:num --v 6 .
@@ -76,7 +76,7 @@ class DALLE3 extends Tool {
     }
 
     let resp;
-    const models = ['midjourney', 'kandinsky-3'];
+    const models = ['midjourney', 'playground-v2.5'];
     for (const model of models) {
       try {
         resp = await this.openai.images.generate({
@@ -100,7 +100,7 @@ Error Message: ${error.message}`;
       return 'Something went wrong when trying to generate the image. The API may unavailable';
     }
 
-    const imageUrls = resp.data.map(image => image.url);
+    const imageUrls = resp.data.map((image) => image.url);
 
     if (!imageUrls.length) {
       return 'No image URL returned from OpenAI API. There may be a problem with the API or your configuration.';

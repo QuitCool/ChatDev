@@ -16,10 +16,10 @@ async function saveImageFromUrl(url, outputPath, outputFilename) {
     }
 
     // Ensure the output filename has a '.png' extension
-    const filenameWithPngExt = outputFilename.endsWith('.png') || outputFilename.endsWith('.jpg')
-      ? outputFilename
-      : `${outputFilename}.jpg`;
-
+    const filenameWithPngExt =
+      outputFilename.endsWith('.png') || outputFilename.endsWith('.jpg')
+        ? outputFilename
+        : `${outputFilename}.png`;
 
     // Create a writable stream for the output path
     const outputFilePath = path.join(outputPath, filenameWithPngExt);
