@@ -7,10 +7,10 @@ export default function Footer() {
   const localize = useLocalize();
 
   const egyptianFlagImage = (
-    <img 
-      src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Flag_of_Palestine_-_long_triangle.svg/120px-Flag_of_Palestine_-_long_triangle.svg.png" 
-      alt="🇪🇬" 
-      style={{ height: '1em', marginLeft: '0.5em', marginRight: '0.5em' }} 
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Flag_of_Palestine_-_long_triangle.svg/120px-Flag_of_Palestine_-_long_triangle.svg.png"
+      alt="🇪🇬"
+      style={{ height: '1em', marginLeft: '0.5em', marginRight: '0.5em' }}
     />
   );
 
@@ -27,7 +27,7 @@ export default function Footer() {
               rel="noreferrer"
               className="underline"
             >
-              {'ChatGPT4MENA' || config?.appTitle} v14.2.24 
+              {'ChatGPT4MENA' || config?.appTitle} v4.3.24
             </a>
             {'    '} {egyptianFlagImage} {localize('com_ui_new_footer')}
           </>
