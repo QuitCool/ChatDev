@@ -83,7 +83,7 @@ export default function PluginsByIndex({
   }
 
   const modelDisplayNames = {
-    'gpt-4-turbo-preview': 'GPT 4 Turbo',
+    'gpt-4': 'GPT 4 Turbo',
     'gpt-4-1106-preview': 'GPT 4',
     'gpt-4-0613': 'GPT 4 (06/13)',
     'gpt-4-vision-preview': 'GPT 4 (Vision)',
@@ -91,7 +91,7 @@ export default function PluginsByIndex({
     'claude-2': 'Claude 2 (PRO)',
     'claude-instant': 'Claude 1 (FREE)',
     'gemini-pro': 'Gemini (PRO)',
-    'gemini-pro-vision' :'Gemini (Vision)',
+    'gemini-pro-vision': 'Gemini (Vision)',
     'llama-2-70b-chat': 'LLaMA 2 (70 Billion)',
     'llama-2-13b-chat': 'LLaMA 2 (13 Billion)',
     'llama-2-7b-chat': 'LLaMA 2 (7 Billion)',
@@ -102,7 +102,10 @@ export default function PluginsByIndex({
   const Menu = popover ? SelectDropDownPop : SelectDropDown;
   const PluginsMenu = popover ? MultiSelectPop : MultiSelectDropDown;
   const handleModelChange = (selectedDisplayName) => {
-    const selectedValue = Object.keys(modelDisplayNames).find(key => modelDisplayNames[key] === selectedDisplayName) || selectedDisplayName;
+    const selectedValue =
+      Object.keys(modelDisplayNames).find(
+        (key) => modelDisplayNames[key] === selectedDisplayName,
+      ) || selectedDisplayName;
     setOption('model')(selectedValue);
   };
 

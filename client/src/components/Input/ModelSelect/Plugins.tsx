@@ -18,8 +18,6 @@ const pluginStore: TPlugin = {
   authenticated: false,
 };
 
-
-
 export default function Plugins({
   conversation,
   setOption,
@@ -37,7 +35,7 @@ export default function Plugins({
   const modelNameMappings = {
     'gpt-4-1106-preview': 'GPT 4 Turbo',
     'gpt-4-vision-preview': 'GPT 4 Vision',
-    'gpt-4-0613': 'GPT 4',
+    'gpt-4': 'GPT 4',
     'gpt-3.5-turbo-1106': 'GPT 3.5 Turbo',
   };
 
@@ -47,7 +45,7 @@ export default function Plugins({
   };
 
   // Updated to apply aliasModelName to each model in models array
-  const aliasedModels = models.map(model => aliasModelName(model));
+  const aliasedModels = models.map((model) => aliasModelName(model));
 
   useEffect(() => {
     if (isSmallScreen) {
@@ -113,7 +111,7 @@ export default function Plugins({
       <Menu
         value={aliasModelName(conversation?.model ?? '')}
         setValue={setOption('model')}
-        availableValues={aliasedModels}  // Updated to use aliased model names
+        availableValues={aliasedModels} // Updated to use aliased model names
         showAbove={showAbove}
         className={cn(cardStyle, 'min-w-60 z-42 flex w-64 sm:w-48', visible ? '' : 'hidden')}
       />
