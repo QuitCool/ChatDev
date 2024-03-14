@@ -115,7 +115,7 @@ const getChatGPTBrowserModels = () => {
 
 const getAnthropicModels = () => {
   let models = [
-    'claude-2.1',
+    'claude-3-opus',
     'claude-2',
     'claude-1.2',
     'claude-1',

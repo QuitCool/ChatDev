@@ -2,9 +2,16 @@ import { SelectDropDown, SelectDropDownPop } from '~/components/ui';
 import { cn, cardStyle } from '~/utils/';
 import type { TModelSelectProps } from '~/common';
 
-export default function OpenAI({ conversation, setOption, models, showAbove = true, popover = true }: TModelSelectProps) {
+export default function OpenAI({
+  conversation,
+  setOption,
+  models,
+  showAbove = true,
+  popover = true,
+}: TModelSelectProps) {
   const modelDisplayNames = {
-    'gpt-4-turbo-preview': 'GPT 4 Turbo',
+    claude_3_opus_200k: 'Claude 3 OPUS 200K🚀',
+    'gpt-4-turbo-preview': 'GPT 4 Turbo🚀',
     'gpt-4-1106-preview': 'GPT 4',
     'gpt-4-0613': 'GPT 4 (06/13)',
     'gpt-4-vision-preview': 'GPT 4 (Vision)',
@@ -12,7 +19,7 @@ export default function OpenAI({ conversation, setOption, models, showAbove = tr
     'claude-2': 'Claude 2 (PRO)',
     'claude-instant': 'Claude 1 (FREE)',
     'gemini-pro': 'Gemini (PRO)',
-    'gemini-pro-vision' :'Gemini (Vision)',
+    'gemini-pro-vision': 'Gemini (Vision)',
     'llama-2-70b-chat': 'LLaMA 2 (70 Billion)',
     'llama-2-13b-chat': 'LLaMA 2 (13 Billion)',
     'llama-2-7b-chat': 'LLaMA 2 (7 Billion)',
@@ -22,7 +29,10 @@ export default function OpenAI({ conversation, setOption, models, showAbove = tr
   const getModelDisplayName = (modelValue) => modelDisplayNames[modelValue] || modelValue;
   const Menu = popover ? SelectDropDownPop : SelectDropDown;
   const handleModelChange = (selectedDisplayName) => {
-    const selectedValue = Object.keys(modelDisplayNames).find(key => modelDisplayNames[key] === selectedDisplayName) || selectedDisplayName;
+    const selectedValue =
+      Object.keys(modelDisplayNames).find(
+        (key) => modelDisplayNames[key] === selectedDisplayName,
+      ) || selectedDisplayName;
     setOption('model')(selectedValue);
   };
 
