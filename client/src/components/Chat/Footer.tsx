@@ -27,7 +27,7 @@ export default function Footer() {
               rel="noreferrer"
               className="underline"
             >
-              {'ChatGPT4MENA' || config?.appTitle} v4.3.24
+              {'ChatGPT4MENA' || config?.appTitle} v18.3.24
             </a>
             {'    '} {egyptianFlagImage} {localize('com_ui_new_footer')}
           </>
