@@ -48,14 +48,12 @@ class OpenAICreateImage extends Tool {
       prompt: z
         .string()
         .max(4000)
-        .describe(
-          'A text description of the desired image, following the rules.',
-        ),
+        .describe('A text description of the desired image, following the rules.'),
       size: z
-      .enum(['1024x1024', '1792x1024', '1024x1792'])
-      .describe(
-        'The size of the requested image. Use 1024x1024 (square) as the default, 1792x1024 if the user requests a wide or landscape image, and 1024x1792 for full-body portraits. Always include this parameter in the request.',
-      ),
+        .enum(['1024x1024', '1792x1024', '1024x1792'])
+        .describe(
+          'The size of the requested image. Use 1024x1024 (square) as the default, 1792x1024 if the user requests a wide or landscape image, and 1024x1792 for full-body portraits. Always include this parameter in the request.',
+        ),
     });
   }
 
@@ -89,7 +87,7 @@ class OpenAICreateImage extends Tool {
     }
 
     let resp;
-    const models = ['dall-e-3', 'kandinsky-3'];
+    const models = ['dall-e-3'];
     for (const model of models) {
       try {
         resp = await this.openai.images.generate({
@@ -120,27 +118,24 @@ Error Message: ${error.message}`;
       return 'No image URL returned from OpenAI API. There may be a problem with the API or your configuration.';
     }
 
-    const regex = /[\w\d]+.jpg/;
+    const regex = /[\w\d]+\.jpg/;
     const match = theImageUrl.match(regex);
-    let imageName = '1.png';
+    let imageName = '';
 
     if (match) {
       imageName = match[0];
-      console.log(imageName); // Output: img-lgCf7ppcbhqQrz6a5ear6FOb.png
+      console.log('Output: ' + imageName); // Example output: Output: img-lgCf7ppcbhqQrz6a5ear6FOb.jpg
     } else {
-      console.log('No image name found in the string.');
+      // Generate a random alphanumeric string for the image name
+      imageName =
+        'img-' +
+        (Math.random().toString(36).substring(2, 15) +
+          Math.random().toString(36).substring(2, 15)) +
+        '.png';
+      console.log('Output: ' + imageName); // Example output: Output: img-l7g9kpzfjgh9kq2.png
     }
 
-    this.outputPath = path.resolve(
-      __dirname,
-      '..',
-      '..',
-      '..',
-      '..',
-      'client',
-      'public',
-      'images',
-    );
+    this.outputPath = path.resolve(__dirname, '..', '..', '..', '..', 'client', 'public', 'images');
     const appRoot = path.resolve(__dirname, '..', '..', '..', '..', 'client');
     this.relativeImageUrl = path.relative(appRoot, this.outputPath);
 
