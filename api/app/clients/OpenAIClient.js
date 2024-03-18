@@ -175,10 +175,6 @@ class OpenAIClient extends BaseClient {
       this.completionsUrl = 'https://api.openai.com/v1/completions';
     }
 
-    if (this.modelOptions.model === 'gpt-4-turbo-preview') {
-      this.completionsUrl = 'http://51.20.230.35:3700/v1/chat/completions';
-    }
-
     if (this.azureEndpoint) {
       this.completionsUrl = this.azureEndpoint;
     }

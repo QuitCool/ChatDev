@@ -45,7 +45,7 @@ export default function Plugins({
   };
 
   // Updated to apply aliasModelName to each model in models array
-  const aliasedModels = models.map((model) => aliasModelName(model));
+  const aliasedModels = models.map(model => aliasModelName(model));
 
   useEffect(() => {
     if (isSmallScreen) {
