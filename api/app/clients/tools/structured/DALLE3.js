@@ -41,7 +41,7 @@ class DALLE3 extends Tool {
         .string()
         .max(4000)
         .describe(
-          'A given description of the desired image, add the parameters (--ar num:num) after it, make sure you end the prompt with "--v 6".',
+          'A given description of the desired image, add the parameters (--ar num:num) after it, make sure you end the prompt with "--v 6 --fast".',
         ),
     });
   }
@@ -81,7 +81,7 @@ class DALLE3 extends Tool {
       try {
         resp = await this.openai.images.generate({
           model,
-          prompt,
+          prompt: this.replaceUnwantedChars(prompt),
           n: 4,
         });
         break; // If the image generation is successful, break out of the loop
