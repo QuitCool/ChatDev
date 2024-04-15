@@ -29,7 +29,7 @@ class MidjournyClient extends BaseClient {
   }
 
   getCompletion() {
-    // Implement completion retrieval specific to MidjournyClient
+    throw new Error('MidjournyClient does not support synchronous completion retrieval.');
   }
 
   async sendCompletion() {
