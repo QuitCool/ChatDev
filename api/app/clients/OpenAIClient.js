@@ -328,10 +328,17 @@ class OpenAIClient extends BaseClient {
     let promptTokens;
 
     promptPrefix = (promptPrefix || this.options.promptPrefix || '').trim();
-    if (promptPrefix || this.modelOptions.model === 'gpt-4-1106-preview') {
-      if (this.modelOptions.model === 'gpt-4-1106-preview') {
+    if (
+      promptPrefix ||
+      this.modelOptions.model === 'gpt-4-1106-preview' ||
+      this.modelOptions.model === 'gpt-4-turbo-preview'
+    ) {
+      if (
+        this.modelOptions.model === 'gpt-4-1106-preview' ||
+        this.modelOptions.model === 'gpt-4-turbo-preview'
+      ) {
         const systempromptprefix = `System Instructions:\n
-        [You're based on the lastes version of GPT 4 that released on 6 Nov 2023, and have up-to-date data until that date.]`;
+        [You're based on the lastes version of GPT 4 that released on 6 Nov 2023, Your base-knowledge data cut-off after 30-Dec-2023.]`;
         promptPrefix = `${systempromptprefix}\nInstructions:\n${promptPrefix}`;
       } else {
         promptPrefix = `Instructions:\n${promptPrefix}`;
