@@ -17,7 +17,15 @@ class MidjournyClient extends BaseClient {
   }
 
   setOptions(options) {
-    // Implement options handling specific to MidjournyClient
+    if (options.guild_id) {
+      this.midJourney.guild_id = options.guild_id;
+    }
+    if (options.channel_id) {
+      this.midJourney.channel_id = options.channel_id;
+    }
+    if (options.skipHeartbeat !== undefined) {
+      this.midJourney.skipHeartbeat = options.skipHeartbeat;
+    }
   }
 
   getCompletion() {
