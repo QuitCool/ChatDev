@@ -8,6 +8,7 @@ const EModelEndpoint = {
   google: 'google',
   gptPlugins: 'gptPlugins',
   anthropic: 'anthropic',
+  midjourney: 'midjourney',
   assistant: 'assistant',
 };
 
@@ -20,11 +21,13 @@ const alternateName = {
   [EModelEndpoint.gptPlugins]: 'Plugins',
   [EModelEndpoint.google]: 'PaLM',
   [EModelEndpoint.anthropic]: 'Anthropic',
+  [EModelEndpoint.midjourney]: 'Midjourney',
 };
 
 const supportsFiles = {
   [EModelEndpoint.openAI]: true,
   [EModelEndpoint.assistant]: true,
+  [EModelEndpoint.midjourney]: true,
 };
 
 const openAIModels = [
@@ -326,6 +329,7 @@ const endpointSchemas = {
   [EModelEndpoint.anthropic]: anthropicSchema,
   [EModelEndpoint.chatGPTBrowser]: chatGPTBrowserSchema,
   [EModelEndpoint.gptPlugins]: gptPluginsSchema,
+  [EModelEndpoint.midjourney]: midjourneySchema, // Assuming midjourneySchema is defined elsewhere
 };
 
 function getFirstDefinedValue(possibleValues) {
