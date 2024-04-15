@@ -25,7 +25,39 @@ class MidjournyClient extends BaseClient {
   }
 
   async sendCompletion() {
-    // Implement sending completion to MidJourney API
+    try {
+      const response = await this.midJourney.createJob({
+        prompt: prompt,
+        isTest: false, // Set to true for testing purposes, false for production
+      });
+
+      if (response.status !== 'ok') {
+        throw new Error(`MidJourney API error: ${response.status}`);
+      }
+
+      // Assuming the response contains a job object with an id
+      const jobId = response.job.id;
+
+      // Poll for job completion and get the result
+      let jobResult = null;
+      while (jobResult === null) {
+        const checkResponse = await this.midJourney.getJobResult(jobId);
+        if (checkResponse.status === 'completed') {
+          jobResult = checkResponse.result;
+        } else if (checkResponse.status === 'failed') {
+          throw new Error('MidJourney job failed');
+        }
+
+        // Wait for a short period before polling again
+        await new Promise(resolve => setTimeout(resolve, 5000));
+      }
+
+      // Assuming the job result contains an image URL
+      return jobResult.image_url;
+    } catch (error) {
+      console.error('Error sending completion to MidJourney API:', error);
+      throw error;
+    }
   }
 
   getSaveOptions() {
